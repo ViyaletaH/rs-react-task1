@@ -1,3 +1,83 @@
+@import '../node_modules/reset-css/reset.css';
+
+
 .container {
-    background-color: red;
+    background-color: #6b6b6b;
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: none;
+    color: whitesmoke;
+}
+
+.header-bar {
+    border: solid 1px crimson;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.about {
+    background: linear-gradient(30deg, #fd511d 0%, #fced45 100%);
+    color: #fff;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 2px rgb(255 85 227);
+    width: 100px;
+    cursor: pointer;
+}
+
+.search {
+    font-size: 15px;
+    width: 400px;
+    height: 20px;
+    border-radius: 25px;
+    outline: none;
+    border: solid 2px #DDDDDD;
+    padding: 5px;
+    position: relative;
+    box-shadow: 2px 2px 2px 2px #ff7300;
+    z-index: 99;
+}
+
+.search-icon {
+    z-index: 100;
+    height: 20px;
+    position: absolute;
+    right: 1%;
+    top: 25%;
+    margin: auto;
+    cursor: pointer;
+}
+
+.searcher {
+    position: relative;
+    width: 400px;
+    height: 25px;
+    height: fit-content;
+}
+
+.card-holder {
+    border: solid 1px crimson;
+    width: 100%;
+    height: 80%;
+    display: flex;
+}
+
+.footer {
+    border: solid 1px crimson;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.course {
+    cursor: pointer;
 }
