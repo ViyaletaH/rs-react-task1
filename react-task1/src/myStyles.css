@@ -114,6 +114,30 @@
     justify-content: space-around;
     padding: 5px;
 }
+
+.card:hover {
+    cursor: pointer;
+    animation: ani 2s linear infinite;
+}
+
+@keyframes ani {
+    0% {
+      box-shadow: 2px 2px 10px #e355ff, -5px -5px 15px #e355ff;
+    }
+  
+    30% {
+      box-shadow: 2px 2px 10px #fd511d, -5px -5px 15px #fd511d;
+    }
+  
+    70% {
+      box-shadow: 2px 2px 10px #fced45, -5px -5px 15px #fced45;
+    }
+  
+    100% {
+      box-shadow: 2px 2px 10px #e355ff, -5px -5px 15px #e355ff;
+    }
+  }
+
 .poster {
     border-radius: 15px;
     width: 125px;

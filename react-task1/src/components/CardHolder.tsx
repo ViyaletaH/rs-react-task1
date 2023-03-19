@@ -6,12 +6,19 @@ interface Cards {
 }
 
 export class CardHolder extends Component<Cards> {
+  clickHandler = () => {};
+
   render() {
     const { cards } = this.props;
     return (
       <div className="card-holder">
         {cards.map((card: Card) => (
-          <div key={card.cardId} data-testid={card.cardId} className="card">
+          <div
+            key={card.cardId}
+            data-testid={card.cardId}
+            className="card"
+            onClick={() => window.open(`${card.video}`, '_blank')}
+          >
             <h2>
               {card.type}: {card.name}
             </h2>
