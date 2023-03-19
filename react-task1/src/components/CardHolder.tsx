@@ -15,7 +15,7 @@ export class CardHolder extends Component<Cards> {
             <h2>{card.name}</h2>
             <p>{card.poster}</p>
             <p>{card.genre}</p>
-            <p>{card.year}</p>
+            <p>Year: {card.year}</p>
             <p>{card.songs}</p>
             <p>{card.date}</p>
           </div>
