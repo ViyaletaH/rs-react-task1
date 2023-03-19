@@ -34,7 +34,7 @@ class Header extends Component {
       (card: Card) =>
         card.name.toLowerCase().includes(searchValue.toLowerCase()) ||
         card.genre.toLowerCase().includes(searchValue.toLowerCase()) ||
-        card.date.toLowerCase().includes(searchValue.toLowerCase())
+        card.date.includes(searchValue.toLowerCase())
     );
 
     return (
