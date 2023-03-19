@@ -69,13 +69,56 @@
     background-color: #989898;
     padding: 5% 10% 5% 10%;
     justify-self: center;
-    /* flex-wrap: wrap; */
     justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-between;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
+.card-holder::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  .card-holder::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 3px #626262; 
+    border-radius: 15px;
+  }
+  
+  .card-holder::-webkit-scrollbar-thumb {
+    background: linear-gradient(30deg, #fd511d 0%, #fced45 100%);
+    border-radius: 20px;
+  }
+  
+  .card-holder::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(
+        150deg,
+        #27ffe2 0%,
+        rgb(77, 255, 92) 30%,
+        #e313ff 50%,
+        #fff800 100%
+      );
+  }
+
 .card {
-    border: solid 1px crimson;
-    height: 150px;
+    background-color: #6b6b6b;
+    display: flex;
+    position: relative;
+    width: 230px;
+    height: 220px;
+    margin: 2%;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 3px;
+    justify-content: space-around;
+    padding: 5px;
+}
+.poster {
+    border-radius: 15px;
+    width: 125px;
+    height: 125px;
+    margin: 3px;
 }
 
 .footer {

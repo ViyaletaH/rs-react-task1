@@ -12,12 +12,25 @@ export class CardHolder extends Component<Cards> {
       <div className="card-holder">
         {cards.map((card: Card) => (
           <div key={card.cardId} data-testid={card.cardId} className="card">
-            <h2>{card.name}</h2>
-            <p>{card.poster}</p>
-            <p>{card.genre}</p>
+            <h2>
+              {card.type}: {card.name}
+            </h2>
+            <img
+              src={`/posters/${card.poster}.PNG`}
+              className="poster"
+              style={{
+                backgroundImage:
+                  card.poster !== '' ? `url( /${card.poster}.png)` : `url(./logo.png)`,
+                backgroundPosition: 'center',
+                backgroundSize: card.poster !== '' ? 'cover' : 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundColor: card.poster !== '' ? undefined : '#fff',
+              }}
+            />
+            <p>Genre: {card.genre}</p>
             <p>Year: {card.year}</p>
-            <p>{card.songs}</p>
-            <p>{card.date}</p>
+            <p>Songs: {card.songs}</p>
+            <p>Date of release: {card.date}</p>
           </div>
         ))}
       </div>
