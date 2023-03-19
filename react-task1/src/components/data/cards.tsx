@@ -100,17 +100,6 @@ const cards: Array<Card> = [
     date: '11.10.2014',
   },
   {
-    cardId: 8,
-    type: 'album',
-    name: "13's reborn",
-    video: '',
-    poster: '',
-    genre: 'alternative metal',
-    year: 2006,
-    songs: 12,
-    date: '27.09.2006',
-  },
-  {
     cardId: 9,
     type: 'mini-album',
     name: '獄-初犯型円盤',

@@ -30,8 +30,11 @@ class Header extends Component {
   render() {
     const { cards, searchValue } = this.state;
 
-    const filteredCards = cards.filter((card: Card) =>
-      card.name.toLowerCase().includes(searchValue.toLowerCase())
+    const filteredCards = cards.filter(
+      (card: Card) =>
+        card.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        card.genre.toLowerCase().includes(searchValue.toLowerCase()) ||
+        card.date.toLowerCase().includes(searchValue.toLowerCase())
     );
 
     return (
