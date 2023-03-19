@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 
-export class Search extends Component {
-  handleSearch = (): void => {};
+interface SearchProps {
+  onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
+export class Search extends Component<SearchProps> {
   render() {
+    const { onSearchChange } = this.props;
+
     return (
       <div className="searcher">
-        <input type="text" placeholder="I'm looking for..." autoFocus className="search" />
-        <img src="/search.png" alt="search" className="search-icon" onClick={this.handleSearch} />
+        <input
+          type="text"
+          placeholder="I'm looking for..."
+          autoFocus
+          className="search"
+          onChange={onSearchChange}
+        />
+        <img src="/search.png" alt="search" className="search-icon" />
       </div>
     );
   }

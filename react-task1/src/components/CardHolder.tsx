@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
-import { cards } from './data/cards';
+import { Card } from './data/cards';
 
-export class CardHolder extends Component {
-  state = {
-    cards,
-    filteredCards: null,
-    searchValue: '',
-  };
+interface Cards {
+  cards: Card[];
+}
 
+export class CardHolder extends Component<Cards> {
   render() {
-    return <div className="card-holder"></div>;
+    const { cards } = this.props;
+    return (
+      <div className="card-holder">
+        {cards.map((card: Card) => (
+          <div key={card.cardId} className="card">
+            <h2>{card.name}</h2>
+            <p>{card.poster}</p>
+            <p>{card.genre}</p>
+            <p>{card.year}</p>
+            <p>{card.songs}</p>
+            <p>{card.date}</p>
+          </div>
+        ))}
+      </div>
+    );
   }
 }
 
