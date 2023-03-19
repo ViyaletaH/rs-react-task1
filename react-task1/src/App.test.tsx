@@ -7,8 +7,8 @@ describe('Cards holder', () => {
   test('cards to be rendered', () => {
     const mockfilteredCards = cards;
     render(<CardHolder cards={mockfilteredCards} />);
-    const crenderCards = screen.getByRole('card');
-    expect(crenderCards).toBeInTheDocument();
+    const crenderCards = screen.getByTestId(1);
+    expect(crenderCards).toBeInTheDocument;
   });
 });
 

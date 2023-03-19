@@ -11,7 +11,7 @@ export class CardHolder extends Component<Cards> {
     return (
       <div className="card-holder">
         {cards.map((card: Card) => (
-          <div key={card.cardId} className="card">
+          <div key={card.cardId} data-testid={card.cardId} className="card">
             <h2>{card.name}</h2>
             <p>{card.poster}</p>
             <p>{card.genre}</p>
