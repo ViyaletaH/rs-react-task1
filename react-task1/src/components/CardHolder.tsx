@@ -6,8 +6,6 @@ interface Cards {
 }
 
 export class CardHolder extends Component<Cards> {
-  clickHandler = () => {};
-
   render() {
     const { cards } = this.props;
     return (
