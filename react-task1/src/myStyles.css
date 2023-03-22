@@ -31,6 +31,34 @@
   cursor: pointer;
 }
 
+.main {
+    background: linear-gradient(30deg, #1dfd7e 0%, #fced45 90%);
+    color: #fff;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 2px rgb(85 246 255);
+    width: 100px;
+    cursor: pointer;
+}
+
+.forms {
+    background: linear-gradient(30deg, rgb(85 246 255) 10%, rgb(255 85 227) 90%);
+    color: #fff;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 2px #1dfd7e;
+    width: 100px;
+    cursor: pointer;
+}
+
+.buttons {
+    width: 23%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .search {
   font-size: 15px;
   width: 400px;
