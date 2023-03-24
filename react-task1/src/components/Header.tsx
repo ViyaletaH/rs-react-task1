@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import HeaderBar from './HeaderBar';
 import CardHolder from './CardHolder';
 import Footer from './Footer';
-import '../myStyles.css';
 import { cards, Card } from './data/cards';
 
 class Header extends Component {
