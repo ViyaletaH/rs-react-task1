@@ -9,6 +9,7 @@ import DateInput from './DateInput';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Switcher from './Switcher';
+import FileUpload from './FileUpload';
 
 interface FormProps {
   formsTextRef: React.RefObject<TextInput>;
@@ -22,6 +23,7 @@ interface FormState {
   selectValue: string;
   dateValue: string;
   switchValue: string;
+  fileValue: File | undefined;
 }
 
 class Forms extends Component<FormProps, FormState> {
@@ -40,6 +42,7 @@ class Forms extends Component<FormProps, FormState> {
       selectValue: '',
       dateValue: '',
       switchValue: '',
+      fileValue: undefined,
     };
   }
 
@@ -63,10 +66,14 @@ class Forms extends Component<FormProps, FormState> {
     this.setState({ switchValue: event.target.value });
   };
 
+  fileChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ fileValue: event.target.files?.[0] });
+  };
+
   submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     alert(
-      `${this.state.inputValue}, ${this.state.checkBoxValue}, ${this.state.selectValue}, ${this.state.dateValue}, ${this.state.switchValue}`
+      `${this.state.inputValue}, ${this.state.checkBoxValue}, ${this.state.selectValue}, ${this.state.dateValue}, ${this.state.switchValue}, ${this.state.fileValue}`
     );
   };
 
@@ -74,7 +81,12 @@ class Forms extends Component<FormProps, FormState> {
     return (
       <div className="forms-component">
         <span>Add a song</span>
-        <form onSubmit={this.submitHandler}>
+        <form
+          onSubmit={this.submitHandler}
+          action="/upload"
+          method="POST"
+          encType="multipart/form-data"
+        >
           <TextInput inputRef={this.formsTextRef} onInputChange={this.inputChangedHandler} />
           <Checkbox
             onCheckboxChange={this.checkboxChangeHandler}
@@ -83,6 +95,7 @@ class Forms extends Component<FormProps, FormState> {
           <Dropdown cards={cards} onSelectChange={this.selectChangeHandler} />
           <DateInput onDateChange={this.dateChangeHandler} />
           <Switcher onSwitchChange={this.switchChangeHandler} />
+          <FileUpload onFileChange={this.fileChangeHandler} />
           <button type="submit">Submit</button>
         </form>
         <Footer />
