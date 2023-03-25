@@ -9,8 +9,7 @@ class DateInput extends Component<DateInputProps> {
   render() {
     return (
       <div>
-        <label htmlFor="release-date">Start date:</label>
-
+        <label htmlFor="release-date">Choose the release date:</label>
         <input
           type="date"
           id="release-date"

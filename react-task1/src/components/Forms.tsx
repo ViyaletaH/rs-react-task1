@@ -8,10 +8,12 @@ import { cards } from './data/cards';
 import DateInput from './DateInput';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Switcher from './Switcher';
 
 interface FormProps {
   formsTextRef: React.RefObject<TextInput>;
   formsDateRef: React.RefObject<DatePicker>;
+  formsSwitchRef: React.RefObject<Switcher>;
 }
 
 interface FormState {
@@ -19,21 +21,25 @@ interface FormState {
   checkBoxValue: string[];
   selectValue: string;
   dateValue: string;
+  switchValue: string;
 }
 
 class Forms extends Component<FormProps, FormState> {
   formsTextRef: React.RefObject<HTMLInputElement>;
   formsDateRef: React.RefObject<DatePicker>;
+  formsSwitchRef: React.RefObject<Switcher>;
 
   constructor(props: FormProps) {
     super(props);
     this.formsTextRef = React.createRef();
     this.formsDateRef = React.createRef();
+    this.formsSwitchRef = React.createRef();
     this.state = {
       inputValue: '',
       checkBoxValue: [],
       selectValue: '',
       dateValue: '',
+      switchValue: '',
     };
   }
 
@@ -53,10 +59,14 @@ class Forms extends Component<FormProps, FormState> {
     this.setState({ dateValue: event.target.value });
   };
 
+  switchChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ switchValue: event.target.value });
+  };
+
   submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     alert(
-      `${this.state.inputValue}, ${this.state.checkBoxValue}, ${this.state.selectValue}, ${this.state.dateValue}`
+      `${this.state.inputValue}, ${this.state.checkBoxValue}, ${this.state.selectValue}, ${this.state.dateValue}, ${this.state.switchValue}`
     );
   };
 
@@ -72,6 +82,7 @@ class Forms extends Component<FormProps, FormState> {
           />
           <Dropdown cards={cards} onSelectChange={this.selectChangeHandler} />
           <DateInput onDateChange={this.dateChangeHandler} />
+          <Switcher onSwitchChange={this.switchChangeHandler} />
           <button type="submit">Submit</button>
         </form>
         <Footer />
