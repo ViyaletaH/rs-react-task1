@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card } from './data/cards';
 
-interface Cards {
+export interface Cards {
   cards: Card[];
 }
 

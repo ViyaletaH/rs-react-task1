@@ -3,28 +3,29 @@ import Footer from './Footer';
 import '../myStyles.css';
 import TextInput from './TextInput';
 import Checkbox from './Checkbox';
+import Dropdown from './Dropdown';
+import { cards } from './data/cards';
 
 interface FormProps {
   formsTextRef: React.RefObject<TextInput>;
-  formCheckboxRef: React.RefObject<Checkbox>;
 }
 
 interface FormState {
   inputValue: string;
   checkBoxValue: string[];
+  selectValue: string;
 }
 
 class Forms extends Component<FormProps, FormState> {
   formsTextRef: React.RefObject<HTMLInputElement>;
-  formCheckboxRef: React.RefObject<Checkbox>;
 
   constructor(props: FormProps) {
     super(props);
     this.formsTextRef = React.createRef();
-    this.formCheckboxRef = React.createRef();
     this.state = {
       inputValue: '',
       checkBoxValue: [],
+      selectValue: '',
     };
   }
 
@@ -36,9 +37,13 @@ class Forms extends Component<FormProps, FormState> {
     this.setState({ checkBoxValue: values });
   };
 
+  selectChangeHandler = (value: string) => {
+    this.setState({ selectValue: value });
+  };
+
   submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    alert(`${this.state.inputValue}, ${this.state.checkBoxValue}`);
+    alert(`${this.state.inputValue}, ${this.state.checkBoxValue}, ${this.state.selectValue}`);
   };
 
   render() {
@@ -51,6 +56,7 @@ class Forms extends Component<FormProps, FormState> {
             onCheckboxChange={this.checkboxChangeHandler}
             checkedValues={this.state.checkBoxValue}
           />
+          <Dropdown cards={cards} onSelectChange={this.selectChangeHandler} />
           <button type="submit">Submit</button>
         </form>
         <Footer />
