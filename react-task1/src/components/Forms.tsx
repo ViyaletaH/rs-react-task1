@@ -5,27 +5,35 @@ import TextInput from './TextInput';
 import Checkbox from './Checkbox';
 import Dropdown from './Dropdown';
 import { cards } from './data/cards';
+import DateInput from './DateInput';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 interface FormProps {
   formsTextRef: React.RefObject<TextInput>;
+  formsDateRef: React.RefObject<DatePicker>;
 }
 
 interface FormState {
   inputValue: string;
   checkBoxValue: string[];
   selectValue: string;
+  dateValue: string;
 }
 
 class Forms extends Component<FormProps, FormState> {
   formsTextRef: React.RefObject<HTMLInputElement>;
+  formsDateRef: React.RefObject<DatePicker>;
 
   constructor(props: FormProps) {
     super(props);
     this.formsTextRef = React.createRef();
+    this.formsDateRef = React.createRef();
     this.state = {
       inputValue: '',
       checkBoxValue: [],
       selectValue: '',
+      dateValue: '',
     };
   }
 
@@ -41,14 +49,20 @@ class Forms extends Component<FormProps, FormState> {
     this.setState({ selectValue: value });
   };
 
+  dateChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ dateValue: event.target.value });
+  };
+
   submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    alert(`${this.state.inputValue}, ${this.state.checkBoxValue}, ${this.state.selectValue}`);
+    alert(
+      `${this.state.inputValue}, ${this.state.checkBoxValue}, ${this.state.selectValue}, ${this.state.dateValue}`
+    );
   };
 
   render() {
     return (
-      <div className="forms">
+      <div className="forms-component">
         <span>Add a song</span>
         <form onSubmit={this.submitHandler}>
           <TextInput inputRef={this.formsTextRef} onInputChange={this.inputChangedHandler} />
@@ -57,6 +71,7 @@ class Forms extends Component<FormProps, FormState> {
             checkedValues={this.state.checkBoxValue}
           />
           <Dropdown cards={cards} onSelectChange={this.selectChangeHandler} />
+          <DateInput onDateChange={this.dateChangeHandler} />
           <button type="submit">Submit</button>
         </form>
         <Footer />

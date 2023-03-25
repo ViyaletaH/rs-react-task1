@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent } from 'react';
+import { Component, ChangeEvent } from 'react';
 import { Card } from './data/cards';
 
 interface DropdownProps {
