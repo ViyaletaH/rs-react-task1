@@ -11,7 +11,7 @@ class TextInput extends Component<TextInputProps> {
     return (
       <div className="textInput">
         <span>Enter the song&apos;s name:</span>
-        <input type="text" ref={this.props.inputRef} onChange={this.props.onInputChange} />
+        <input type="text" ref={this.props.inputRef} onChange={this.props.onInputChange} required />
       </div>
     );
   }

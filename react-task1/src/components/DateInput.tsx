@@ -17,6 +17,7 @@ class DateInput extends Component<DateInputProps> {
           value={this.props.inputRef?.current?.value}
           min="2005-05-25"
           max="2033-12-31"
+          required
           ref={this.props.inputRef}
           onChange={this.props.onDateChange}
         />

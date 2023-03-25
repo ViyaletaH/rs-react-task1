@@ -126,7 +126,7 @@
   background: linear-gradient(150deg, #27ffe2 0%, rgb(77, 255, 92) 30%, #e313ff 50%, #fff800 100%);
 }
 
-.card {
+.card, .song-card {
   background-color: #6b6b6b;
   display: flex;
   position: relative;
@@ -163,7 +163,7 @@
   }
 }
 
-.poster {
+.poster, .cover {
   border-radius: 15px;
   width: 125px;
   height: 125px;

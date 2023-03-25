@@ -41,6 +41,7 @@ class Checkbox extends Component<CheckboxProps, CheckboxState> {
               id="alternative"
               name="genres"
               value="alternative metal"
+              required
               checked={this.state.checkedValues.includes('alternative metal')}
               onChange={this.handleCheckboxChange}
             />

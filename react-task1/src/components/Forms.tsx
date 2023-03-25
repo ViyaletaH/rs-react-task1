@@ -10,6 +10,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Switcher from './Switcher';
 import FileUpload from './FileUpload';
+import Songs from './Songs';
 
 interface FormProps {
   formsTextRef: React.RefObject<TextInput>;
@@ -72,15 +73,12 @@ class Forms extends Component<FormProps, FormState> {
 
   submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    alert(
-      `${this.state.inputValue}, ${this.state.checkBoxValue}, ${this.state.selectValue}, ${this.state.dateValue}, ${this.state.switchValue}, ${this.state.fileValue}`
-    );
   };
 
   render() {
     return (
       <div className="forms-component">
-        <span>Add a song</span>
+        <span>Help us adding a song!</span>
         <form
           onSubmit={this.submitHandler}
           action="/upload"
@@ -98,6 +96,7 @@ class Forms extends Component<FormProps, FormState> {
           <FileUpload onFileChange={this.fileChangeHandler} />
           <button type="submit">Submit</button>
         </form>
+        <Songs />
         <Footer />
       </div>
     );
