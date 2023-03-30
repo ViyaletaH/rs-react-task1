@@ -1,14 +1,9 @@
 import { SongOnly } from './Forms';
 
-interface SongCardProps {
-  songData: SongOnly;
-}
-
-function SongCard({ songData }: SongCardProps) {
+function SongCard({ name, genres, album, date, video, cover }: SongOnly) {
   return (
     <>
-      {songData.name} {songData.genres} {songData.album} {songData.date} {songData.video}{' '}
-      {songData.cover}
+      {name} {genres} {album} {date} {video} {cover}
     </>
   );
 }

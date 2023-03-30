@@ -18,7 +18,7 @@ export interface SongOnly {
   genres: string[];
   album: string;
   date: string;
-  video: string;
+  video: boolean;
   cover: Blob | MediaSource | string;
   fileValueUrl?: string;
 }
@@ -26,10 +26,10 @@ export interface SongOnly {
 function Forms() {
   const [textInputValue, setTextInputValue] = useState('');
   const [checkBoxValue, setCheckBoxValue] = useState<string[]>([]);
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedCard, setSelectedCard] = useState<string>('');
+  const [selectedDate, setSelectedDate] = useState<string>('');
   const [switchValue, setSwitchValue] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<ChangeEvent<HTMLInputElement> | null>(null);
+  const [selectedFile, setSelectedFile] = useState<Blob | MediaSource | string>('');
   const [submitted, setSubmitted] = useState(false);
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
@@ -40,15 +40,15 @@ function Forms() {
   const resetForm = () => {
     setTextInputValue('');
     setCheckBoxValue([]);
-    setSelectedCard(null);
-    setSelectedDate(null);
+    setSelectedCard('');
+    setSelectedDate('');
     setSwitchValue(false);
-    setSelectedFile(null);
+    setSelectedFile('');
     setSubmitted(false);
   };
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newDate = new Date(event.target.value);
+    const newDate = event.target.value;
     setSelectedDate(newDate);
   };
 
