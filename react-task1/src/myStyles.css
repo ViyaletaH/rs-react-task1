@@ -181,3 +181,7 @@
 .course {
   cursor: pointer;
 }
+
+.forms-component {
+  display: flex;
+}

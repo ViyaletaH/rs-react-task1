@@ -18,7 +18,6 @@ class Switcher extends Component<SwitcherProps> {
               id="yes"
               name="video"
               value="yes"
-              checked
               ref={this.props.inputRef}
               onChange={this.props.onSwitchChange}
             />
@@ -30,6 +29,7 @@ class Switcher extends Component<SwitcherProps> {
               id="no"
               name="video"
               value="no"
+              checked
               ref={this.props.inputRef}
               onChange={this.props.onSwitchChange}
             />
