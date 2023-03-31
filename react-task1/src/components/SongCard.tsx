@@ -11,7 +11,7 @@ function SongCard({ name, genres, album, date, video, cover }: SongOnly) {
     }
   }, [cover]);
 
-  console.log(name, genres, album, date, video, cover);
+  console.log(date);
 
   return (
     <div className="song-card">

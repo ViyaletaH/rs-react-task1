@@ -27,7 +27,7 @@ function Forms() {
   const [textInputValue, setTextInputValue] = useState('');
   const [checkBoxValue, setCheckBoxValue] = useState<string[]>([]);
   const [selectedCard, setSelectedCard] = useState<string>('');
-  const [selectedDate, setSelectedDate] = useState<string>('');
+  const [selectedDate, setSelectedDate] = useState('');
   const [switchValue, setSwitchValue] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -38,23 +38,18 @@ function Forms() {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
-    alert(`textinput: ${textInputValue}`);
+    console.log(`textinput: ${textInputValue}, ${selectedDate}, ${checkBoxValue}`);
   };
 
-  const resetForm = () => {
-    setTextInputValue('');
-    setCheckBoxValue([]);
-    setSelectedCard('');
-    setSelectedDate('');
-    setSwitchValue(false);
-    setSelectedFile(null);
-    setSubmitted(false);
-  };
-
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newDate = event.target.value;
-    setSelectedDate(newDate);
-  };
+  //   const resetForm = () => {
+  //     setTextInputValue('');
+  //     setCheckBoxValue([]);
+  //     setSelectedCard('');
+  //     setSelectedDate('');
+  //     setSwitchValue(false);
+  //     setSelectedFile(null);
+  //     setSubmitted(false);
+  //   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -74,15 +69,13 @@ function Forms() {
           checkedValues={checkBoxValue}
         />
         <Dropdown cards={cards} onSelectChange={(card) => setSelectedCard(card)} />
-        <DateInput onDateChange={handleDateChange} />
+        <DateInput onDateChange={(value) => setSelectedDate(value)} dateChoice={selectedDate} />
         <Switcher
           inputRef={switchRef}
           onSwitchChange={(event) => setSwitchValue(event.target.checked)}
         />
         <FileUpload onFileChange={handleFileChange} />
-        <button type="submit" onClick={resetForm}>
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
       {submitted && (
         <SongCard

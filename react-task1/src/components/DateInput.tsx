@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState, ChangeEvent } from 'react';
 
 interface DateInputProps {
-  inputRef?: React.RefObject<HTMLInputElement>;
-  onDateChange: React.ChangeEventHandler<HTMLInputElement>;
+  onDateChange: (event: string) => void;
+  dateChoice: string;
 }
 
-const DateInput = ({ inputRef, onDateChange }: DateInputProps) => {
+const DateInput = ({ onDateChange, dateChoice }: DateInputProps) => {
+  const [stateDateValue, setStateDateValue] = useState<string>(dateChoice);
+
+  function handleDateChange(event: ChangeEvent<HTMLInputElement>) {
+    const newDateValue = event.target.value;
+    setStateDateValue(newDateValue);
+    onDateChange(newDateValue);
+  }
   return (
     <div>
       <label htmlFor="release-date">Choose the release date:</label>
@@ -13,12 +20,11 @@ const DateInput = ({ inputRef, onDateChange }: DateInputProps) => {
         type="date"
         id="release-date"
         name="release-date"
-        value={inputRef?.current?.value}
+        value={stateDateValue}
         min="2005-05-25"
         max="2033-12-31"
         required
-        ref={inputRef}
-        onChange={onDateChange}
+        onChange={handleDateChange}
       />
     </div>
   );
