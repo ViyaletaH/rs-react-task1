@@ -6,8 +6,10 @@ interface FileUploadProps {
 
 const FileUpload = ({ onFileChange }: FileUploadProps) => {
   return (
-    <div>
-      <label htmlFor="cover-upload">Choose an album/single cover:</label>
+    <div className="file-form">
+      <label htmlFor="cover-upload" className="cover-upload">
+        Choose an album/single cover:{' '}
+      </label>
       <input type="file" id="cover-upload" name="cover" accept="image/*" onChange={onFileChange} />
     </div>
   );

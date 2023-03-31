@@ -21,9 +21,9 @@ const Checkbox = ({ onCheckboxChange, checkedValues }: CheckboxProps) => {
   }, [stateCheckedValues, onCheckboxChange]);
 
   return (
-    <div>
+    <div className="checkbox-form">
       <fieldset>
-        <legend>Choose the genres:</legend>
+        <legend className="checkbox-name">Choose the genres:</legend>
         <div>
           <input
             type="checkbox"

@@ -31,6 +31,7 @@ export class CardHolder extends Component<Cards> {
                 backgroundRepeat: 'no-repeat',
                 backgroundColor: card.poster !== '' ? undefined : '#fff',
               }}
+              alt="album cover"
             />
             <p>Genre: {card.genre}</p>
             <p>Year: {card.year}</p>

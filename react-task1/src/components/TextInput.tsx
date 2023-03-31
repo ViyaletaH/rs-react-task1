@@ -9,7 +9,7 @@ interface TextInputProps {
 const TextInput = ({ inputTextRef, onInputChange }: TextInputProps) => {
   return (
     <div className="textInput">
-      <span>Enter the song&apos;s name:</span>
+      <span className="textinput-name">Enter the song&apos;s name: </span>
       <input type="text" ref={inputTextRef} onChange={onInputChange} required />
     </div>
   );

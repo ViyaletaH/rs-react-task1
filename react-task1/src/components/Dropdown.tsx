@@ -16,8 +16,10 @@ function Dropdown({ cards, onSelectChange }: DropdownProps) {
   };
 
   return (
-    <div>
-      <label htmlFor="album-choice">Choose the album, the song belongs to:</label>
+    <div className="dropdown-form">
+      <label htmlFor="album-choice" className="album-choice">
+        Choose the album, the song belongs to:{' '}
+      </label>
       <select name="albums" id="album-choice" onChange={selectChangeHandler} required>
         <option value={selectValue}>Choose the album</option>
         {cards.map((card: Card) => (

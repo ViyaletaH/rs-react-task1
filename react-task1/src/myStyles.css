@@ -32,35 +32,47 @@
 }
 
 .main {
-    background: linear-gradient(30deg, #1dfd7e 0%, #fced45 90%);
-    color: #fff;
-    font-size: 0.9rem;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0px 0px 3px 2px rgb(85 246 255);
-    width: 100px;
-    cursor: pointer;
+  background: linear-gradient(30deg, #1dfd7e 0%, #fced45 90%);
+  color: #fff;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px 2px rgb(85 246 255);
+  width: 100px;
+  cursor: pointer;
 }
 
 .forms {
-    background: linear-gradient(30deg, rgb(85 246 255) 10%, rgb(255 85 227) 90%);
-    color: #fff;
-    font-size: 0.9rem;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0px 0px 3px 2px #1dfd7e;
-    width: 100px;
-    cursor: pointer;
+  background: linear-gradient(30deg, rgb(85 246 255) 10%, rgb(255 85 227) 90%);
+  color: #fff;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px 2px #1dfd7e;
+  width: 100px;
+  cursor: pointer;
+}
+
+.submit {
+  background: linear-gradient(30deg, #fd511d 0%, #fced45 100%);
+  color: #fff;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px 2px rgb(255 85 227);
+  width: 100px;
+  cursor: pointer;
+  margin-top: 5%;
 }
 
 .buttons {
-    width: 23%;
-    display: flex;
-    justify-content: space-between;
+  width: 23%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .form {
-    color: red;
+  color: red;
 }
 
 .search {
@@ -126,7 +138,8 @@
   background: linear-gradient(150deg, #27ffe2 0%, rgb(77, 255, 92) 30%, #e313ff 50%, #fff800 100%);
 }
 
-.card, .song-card {
+.card,
+.song-card {
   background-color: #6b6b6b;
   display: flex;
   position: relative;
@@ -163,7 +176,8 @@
   }
 }
 
-.poster, .cover {
+.poster,
+.cover {
   border-radius: 15px;
   width: 125px;
   height: 125px;
@@ -182,12 +196,106 @@
   cursor: pointer;
 }
 
+html, body {
+  overflow-x:hidden 
+} 
+
 .forms-component {
   display: flex;
+  position: relative;
+  background-color: #989898;
+  height: fit-content;
+  min-width: 100vw;
+  overflow-x: hidden;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: none;
+  color: whitesmoke;
+  align-items: center;
 }
 
-.card-test {
-  width: fit-content;
-  height:fit-content;
+.form-components,
+.main-form {
+  background-color: #6b6b6b;
+  border-radius: 15px;
+  margin-top: 3%;
+  margin-bottom: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.form-components {
+  padding: 0.7%;
+}
+
+.form-cards {
+  width: 80%;
+  height: fit-content;
+  display: flex;
+  background-color: #989898;
+  padding: 5% 10% 5% 10%;
+  justify-self: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-between;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.song-card {
   color: #fff;
+  font-size: 0.9rem;
+}
+
+.song-name {
+  font-weight: 600;
+  margin: 5px;
+}
+
+.song-card {
+  width: 200px;
+  height: 210px;
+  padding: 1%;
+}
+
+.footer {
+  background-color: #6b6b6b;
+}
+
+.textInput,
+.checkbox-form,
+.checkbox-name,
+.dropdown-form,
+.date-form,
+.switcher-form,
+.switcher-name {
+  margin-bottom: 2%;
+}
+
+.checkbox-form,
+.dropdown-form,
+.switcher {
+  display: flex;
+  justify-content: space-around;
+}
+
+.album-choice,
+.release-date {
+  margin-right: 4px;
+}
+
+.cover-upload,
+.album-choice,
+.release-date,
+.switcher-name,
+.checkbox-name,
+.textinput-name, .form-components-name {
+  font-weight: 600;
+}
+
+.form-components-name {
+  font-size: large;
 }

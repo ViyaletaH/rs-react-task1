@@ -7,9 +7,9 @@ interface SwitcherProps {
 
 const Switcher = ({ inputRef, onSwitchChange }: SwitcherProps) => {
   return (
-    <div>
-      <fieldset>
-        <legend>Is there a music video for the song?</legend>
+    <div className="switcher-form">
+      <fieldset className="switcher">
+        <legend className="switcher-name">Is there a music video for the song?</legend>
         <div>
           <label htmlFor="yes">Yes</label>
           <input

@@ -6,11 +6,10 @@ import Checkbox from './Checkbox';
 import Dropdown from './Dropdown';
 import { cards } from './data/cards';
 import DateInput from './DateInput';
-// import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Switcher from './Switcher';
 import FileUpload from './FileUpload';
-// import Songs from './Songs';
+import { songs } from './data/songs';
 import SongCard from './SongCard';
 
 export interface SongOnly {
@@ -38,7 +37,6 @@ function Forms() {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
-    console.log(`textinput: ${textInputValue}, ${selectedDate}, ${checkBoxValue}`);
   };
 
   //   const resetForm = () => {
@@ -58,35 +56,67 @@ function Forms() {
 
   return (
     <div className="forms-component">
-      <span>Help us adding a song!</span>
-      <form onSubmit={submitHandler} action="/upload" method="POST" encType="multipart/form-data">
-        <TextInput
-          inputTextRef={inputTextRef}
-          onInputChange={(event) => setTextInputValue(event.target.value)}
-        />
-        <Checkbox
-          onCheckboxChange={(values) => setCheckBoxValue(values)}
-          checkedValues={checkBoxValue}
-        />
-        <Dropdown cards={cards} onSelectChange={(card) => setSelectedCard(card)} />
-        <DateInput onDateChange={(value) => setSelectedDate(value)} dateChoice={selectedDate} />
-        <Switcher
-          inputRef={switchRef}
-          onSwitchChange={(event) => setSwitchValue(event.target.checked)}
-        />
-        <FileUpload onFileChange={handleFileChange} />
-        <button type="submit">Submit</button>
-      </form>
-      {submitted && (
-        <SongCard
-          name={textInputValue}
-          genres={checkBoxValue}
-          album={selectedCard}
-          date={selectedDate}
-          video={switchValue}
-          cover={selectedFile}
-        />
-      )}
+      <div className="form-components">
+        <span className="form-components-name">Help us adding a song!</span>
+        <form
+          onSubmit={submitHandler}
+          action="/upload"
+          method="POST"
+          encType="multipart/form-data"
+          className="main-form"
+        >
+          <TextInput
+            inputTextRef={inputTextRef}
+            onInputChange={(event) => setTextInputValue(event.target.value)}
+          />
+          <Checkbox
+            onCheckboxChange={(values) => setCheckBoxValue(values)}
+            checkedValues={checkBoxValue}
+          />
+          <Dropdown cards={cards} onSelectChange={(card) => setSelectedCard(card)} />
+          <DateInput onDateChange={(value) => setSelectedDate(value)} dateChoice={selectedDate} />
+          <Switcher
+            inputRef={switchRef}
+            onSwitchChange={(event) => setSwitchValue(event.target.checked)}
+          />
+          <FileUpload onFileChange={handleFileChange} />
+          <button type="submit" className="submit">
+            Submit
+          </button>
+        </form>
+      </div>
+      <div className="form-cards">
+        {submitted && (
+          <SongCard
+            name={textInputValue}
+            genres={checkBoxValue}
+            album={selectedCard}
+            date={selectedDate}
+            video={switchValue}
+            cover={selectedFile}
+          />
+        )}
+        {songs.map((song) => (
+          <div key={song.songId} className="song-card">
+            <span className="song-name">{song.name}</span>
+            <p>Genres: {song.genres}</p>
+            <img
+              src={`/posters/${song.cover}.PNG`}
+              className="poster"
+              style={{
+                backgroundImage: song.cover !== '' ? `url( /${song.cover}.png)` : `url(./logo.png)`,
+                backgroundPosition: 'center',
+                backgroundSize: song.cover !== '' ? 'cover' : 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundColor: song.cover !== '' ? undefined : '#fff',
+              }}
+            />
+            <p>Album: {song.album}</p>
+            <p>Date: {song.date}</p>
+            <p>MV: {song.video ? 'Yes' : 'No'}</p>
+          </div>
+        ))}
+      </div>
       <Footer />
     </div>
   );

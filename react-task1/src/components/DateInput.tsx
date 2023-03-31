@@ -14,8 +14,10 @@ const DateInput = ({ onDateChange, dateChoice }: DateInputProps) => {
     onDateChange(newDateValue);
   }
   return (
-    <div>
-      <label htmlFor="release-date">Choose the release date:</label>
+    <div className="date-form">
+      <label htmlFor="release-date" className="release-date">
+        Choose the release date:
+      </label>
       <input
         type="date"
         id="release-date"

@@ -3,24 +3,40 @@ import React, { useState } from 'react';
 
 function SongCard({ name, genres, album, date, video, cover }: SongOnly) {
   const [coverUrl, setCoverUrl] = useState<string | null>(null);
+  const [songs, setSongs] = useState<SongOnly[]>([]);
 
   React.useEffect(() => {
     if (cover) {
       const url = URL.createObjectURL(cover);
       setCoverUrl(url);
     }
-  }, [cover]);
-
-  console.log(date);
+    setSongs((prevSongs) => [...prevSongs, { name, genres, album, date, video, cover }]);
+  }, [cover, name, genres, album, date, video]);
 
   return (
-    <div className="song-card">
-      <h2>{name}</h2>
-      <p>Genres: {genres.join(', ')}</p>
-      <p>Album: {album}</p>
-      <p>Date: {date}</p>
-      <p>Video: {video ? 'Yes' : 'No'}</p>
-      {coverUrl && <img src={coverUrl} alt="Cover" />}
+    <div>
+      {songs.map((song) => (
+        <div className="song-card" key={song.name}>
+          <span className="song-name">{song.name}</span>
+          <p>Genres: {song.genres.join(', ')}</p>
+          {coverUrl && (
+            <img
+              src={coverUrl}
+              alt="album cover"
+              className="poster"
+              style={{
+                backgroundImage: `url( /${coverUrl})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          )}
+          <p>Album: {song.album}</p>
+          <p>Date: {song.date}</p>
+          <p>MV: {song.video ? 'Yes' : 'No'}</p>
+        </div>
+      ))}
     </div>
   );
 }
