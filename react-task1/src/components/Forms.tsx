@@ -34,11 +34,11 @@ function Forms() {
 
   const inputTextRef = useRef<HTMLInputElement>(null);
   const switchRef = useRef<HTMLInputElement>(null);
-  //   const coverRef = useRef<HTMLInputElement>();
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
+    alert(`textinput: ${textInputValue}`);
   };
 
   const resetForm = () => {
@@ -94,16 +94,6 @@ function Forms() {
           cover={selectedFile}
         />
       )}
-      {/* <Songs
-        name={this.state.inputValue}
-        date={this.state.dateValue}
-        cover={this.state.fileValue}
-        video={this.state.switchValue}
-        album={this.state.selectValue}
-        genres={this.state.checkBoxValue}
-        addNewCard={this.addNewCard}
-        ref={this.songsRef}
-      /> */}
       <Footer />
     </div>
   );

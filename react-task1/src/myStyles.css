@@ -185,3 +185,9 @@
 .forms-component {
   display: flex;
 }
+
+.card-test {
+  width: fit-content;
+  height:fit-content;
+  color: #fff;
+}
