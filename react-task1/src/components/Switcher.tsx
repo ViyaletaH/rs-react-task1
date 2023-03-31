@@ -28,7 +28,7 @@ const Switcher = ({ inputRef, onSwitchChange }: SwitcherProps) => {
             id="no"
             name="video"
             value="no"
-            checked
+            defaultChecked
             ref={inputRef}
             onChange={onSwitchChange}
           />

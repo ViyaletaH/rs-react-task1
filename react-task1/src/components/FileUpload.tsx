@@ -10,7 +10,14 @@ const FileUpload = ({ onFileChange }: FileUploadProps) => {
       <label htmlFor="cover-upload" className="cover-upload">
         Choose an album/single cover:{' '}
       </label>
-      <input type="file" id="cover-upload" name="cover" accept="image/*" onChange={onFileChange} />
+      <input
+        type="file"
+        id="cover-upload"
+        name="cover"
+        accept="image/*"
+        onChange={onFileChange}
+        required
+      />
     </div>
   );
 };

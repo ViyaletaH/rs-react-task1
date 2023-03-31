@@ -37,6 +37,9 @@ function Forms() {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
+    setTimeout(function () {
+      alert('The card was added!');
+    }, 1000);
   };
 
   //   const resetForm = () => {
