@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, useRef } from 'react';
 import Footer from './Footer';
 import '../myStyles.css';
 import TextInput from './TextInput';
@@ -19,7 +19,7 @@ export interface SongOnly {
   album: string;
   date: string;
   video: boolean;
-  cover: Blob | MediaSource | string;
+  cover: File | null;
   fileValueUrl?: string;
 }
 
@@ -29,8 +29,12 @@ function Forms() {
   const [selectedCard, setSelectedCard] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [switchValue, setSwitchValue] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<Blob | MediaSource | string>('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
+
+  const inputTextRef = useRef<HTMLInputElement>(null);
+  const switchRef = useRef<HTMLInputElement>(null);
+  //   const coverRef = useRef<HTMLInputElement>();
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -43,7 +47,7 @@ function Forms() {
     setSelectedCard('');
     setSelectedDate('');
     setSwitchValue(false);
-    setSelectedFile('');
+    setSelectedFile(null);
     setSubmitted(false);
   };
 
@@ -52,29 +56,30 @@ function Forms() {
     setSelectedDate(newDate);
   };
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    setSelectedFile(file || null);
+  };
+
   return (
     <div className="forms-component">
       <span>Help us adding a song!</span>
       <form onSubmit={submitHandler} action="/upload" method="POST" encType="multipart/form-data">
         <TextInput
-          inputTextRef={null}
+          inputTextRef={inputTextRef}
           onInputChange={(event) => setTextInputValue(event.target.value)}
         />
         <Checkbox
           onCheckboxChange={(values) => setCheckBoxValue(values)}
           checkedValues={checkBoxValue}
         />
-        <Dropdown
-          cards={cards}
-          onSelectChange={(card) => setSelectedCard(card)}
-          selectedVariant={selectedCard}
-        />
-        <DateInput onDateChange={handleDateChange} chosenDate={selectedDate} />
+        <Dropdown cards={cards} onSelectChange={(card) => setSelectedCard(card)} />
+        <DateInput onDateChange={handleDateChange} />
         <Switcher
+          inputRef={switchRef}
           onSwitchChange={(event) => setSwitchValue(event.target.checked)}
-          switchChoice={switchValue}
         />
-        <FileUpload onFileChange={(file) => setSelectedFile(file)} uploadedFile={selectedFile} />
+        <FileUpload onFileChange={handleFileChange} />
         <button type="submit" onClick={resetForm}>
           Submit
         </button>
