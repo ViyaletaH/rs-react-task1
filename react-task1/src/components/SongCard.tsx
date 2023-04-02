@@ -1,31 +1,52 @@
 import { SongOnly } from './Forms';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
-function SongCard({ name, genres, album, date, video, cover }: SongOnly) {
-  const [coverUrl, setCoverUrl] = useState<string | null>(null);
+interface SongCardProps {
+  data: SongOnly;
+  key?: string;
+}
+
+function SongCard({ data, key }: SongCardProps) {
   const [songs, setSongs] = useState<SongOnly[]>([]);
+  const prevDataRef = useRef<SongOnly>();
 
-  React.useEffect(() => {
-    if (cover) {
-      const url = URL.createObjectURL(cover);
-      setCoverUrl(url);
+  useEffect(() => {
+    if (prevDataRef.current !== data && data.cover) {
+      const url = URL.createObjectURL(data.cover);
+      prevDataRef.current = data;
+      setSongs((prevSongs) => {
+        const newSongIndex = prevSongs.findIndex(
+          (song) => song.key === (key || `${data.name}-${new Date().getTime()}`)
+        );
+        const updatedSong = {
+          ...data,
+          key: key || `${data.name}-${new Date().getTime()}`,
+          coverUrl: url,
+        };
+        if (newSongIndex === -1) {
+          return [...prevSongs, updatedSong];
+        } else {
+          const newSongs = [...prevSongs];
+          newSongs.splice(newSongIndex, 1, updatedSong);
+          return newSongs;
+        }
+      });
     }
-    setSongs((prevSongs) => [...prevSongs, { name, genres, album, date, video, cover }]);
-  }, [cover, name, genres, album, date, video]);
+  }, [data, key, data.cover]);
 
   return (
     <div>
       {songs.map((song) => (
-        <div className="song-card" key={song.name}>
+        <div className="song-card" key={song.key}>
           <span className="song-name">{song.name}</span>
           <p>Genres: {song.genres.join(', ')}</p>
-          {coverUrl && (
+          {song.coverUrl && (
             <img
-              src={coverUrl}
+              src={song.coverUrl}
               alt="album cover"
               className="poster"
               style={{
-                backgroundImage: `url( /${coverUrl})`,
+                backgroundImage: `url( /${song.coverUrl})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',

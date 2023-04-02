@@ -13,13 +13,14 @@ import { songs } from './data/songs';
 import SongCard from './SongCard';
 
 export interface SongOnly {
+  key?: string;
   name: string;
   genres: string[];
   album: string;
   date: string;
   video: boolean;
   cover: File | null;
-  fileValueUrl?: string;
+  coverUrl?: string;
 }
 
 function Forms() {
@@ -30,6 +31,7 @@ function Forms() {
   const [switchValue, setSwitchValue] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [songData, setSongData] = useState<SongOnly | null>(null);
 
   const inputTextRef = useRef<HTMLInputElement>(null);
   const switchRef = useRef<HTMLInputElement>(null);
@@ -37,20 +39,29 @@ function Forms() {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
+    const newSongData: SongOnly = {
+      name: textInputValue,
+      genres: checkBoxValue,
+      album: selectedCard,
+      date: selectedDate,
+      video: switchValue,
+      cover: selectedFile,
+    };
+    setSongData(newSongData);
     setTimeout(function () {
       alert('The card was added!');
     }, 1000);
   };
 
-  //   const resetForm = () => {
-  //     setTextInputValue('');
-  //     setCheckBoxValue([]);
-  //     setSelectedCard('');
-  //     setSelectedDate('');
-  //     setSwitchValue(false);
-  //     setSelectedFile(null);
-  //     setSubmitted(false);
-  //   };
+  // const resetForm = () => {
+  //   setTextInputValue('');
+  //   setCheckBoxValue([]);
+  //   setSelectedCard('');
+  //   setSelectedDate('');
+  //   setSwitchValue(false);
+  //   setSelectedFile(null);
+  //   setSubmitted(false);
+  // };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -89,16 +100,7 @@ function Forms() {
         </form>
       </div>
       <div className="form-cards">
-        {submitted && (
-          <SongCard
-            name={textInputValue}
-            genres={checkBoxValue}
-            album={selectedCard}
-            date={selectedDate}
-            video={switchValue}
-            cover={selectedFile}
-          />
-        )}
+        {submitted && songData && <SongCard key={songData.key} data={songData} />}
         {songs.map((song) => (
           <div key={song.songId} className="song-card">
             <span className="song-name">{song.name}</span>
