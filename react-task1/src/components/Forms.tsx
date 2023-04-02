@@ -53,16 +53,6 @@ function Forms() {
     }, 1000);
   };
 
-  // const resetForm = () => {
-  //   setTextInputValue('');
-  //   setCheckBoxValue([]);
-  //   setSelectedCard('');
-  //   setSelectedDate('');
-  //   setSwitchValue(false);
-  //   setSelectedFile(null);
-  //   setSubmitted(false);
-  // };
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     setSelectedFile(file || null);
