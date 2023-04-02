@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 
-interface CheckboxProps {
+export interface CheckboxProps {
   onCheckboxChange: (values: string[]) => void;
   checkedValues: string[];
 }
