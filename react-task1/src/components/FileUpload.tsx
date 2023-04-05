@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 interface FileUploadProps {
   onFileChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-class FileUpload extends Component<FileUploadProps> {
-  render() {
-    return (
-      <div>
-        <label htmlFor="cover-upload">Choose an album/single cover:</label>
-        <input
-          type="file"
-          id="cover-upload"
-          name="cover"
-          accept="image/*"
-          required
-          onChange={this.props.onFileChange}
-        />
-      </div>
-    );
-  }
-}
+const FileUpload = ({ onFileChange }: FileUploadProps) => {
+  return (
+    <div className="file-form">
+      <label htmlFor="cover-upload" className="cover-upload">
+        Choose an album/single cover:{' '}
+      </label>
+      <input
+        type="file"
+        id="cover-upload"
+        name="cover"
+        accept="image/*"
+        onChange={onFileChange}
+        required
+      />
+    </div>
+  );
+};
 
 export default FileUpload;

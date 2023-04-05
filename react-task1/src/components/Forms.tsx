@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent } from 'react';
+import React, { useState, useRef } from 'react';
 import Footer from './Footer';
 import '../myStyles.css';
 import TextInput from './TextInput';
@@ -6,101 +6,115 @@ import Checkbox from './Checkbox';
 import Dropdown from './Dropdown';
 import { cards } from './data/cards';
 import DateInput from './DateInput';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Switcher from './Switcher';
 import FileUpload from './FileUpload';
-import Songs from './Songs';
+import { songs } from './data/songs';
+import SongCard from './SongCard';
 
-interface FormProps {
-  formsTextRef: React.RefObject<TextInput>;
-  formsDateRef: React.RefObject<DatePicker>;
-  formsSwitchRef: React.RefObject<Switcher>;
+export interface SongOnly {
+  key?: string;
+  name: string;
+  genres: string[];
+  album: string;
+  date: string;
+  video: boolean;
+  cover: File | null;
+  coverUrl?: string;
 }
 
-interface FormState {
-  inputValue: string;
-  checkBoxValue: string[];
-  selectValue: string;
-  dateValue: string;
-  switchValue: string;
-  fileValue: File | undefined;
-}
+function Forms() {
+  const [textInputValue, setTextInputValue] = useState('');
+  const [checkBoxValue, setCheckBoxValue] = useState<string[]>([]);
+  const [selectedCard, setSelectedCard] = useState<string>('');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [switchValue, setSwitchValue] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [songData, setSongData] = useState<SongOnly | null>(null);
 
-class Forms extends Component<FormProps, FormState> {
-  formsTextRef: React.RefObject<HTMLInputElement>;
-  formsDateRef: React.RefObject<DatePicker>;
-  formsSwitchRef: React.RefObject<Switcher>;
+  const inputTextRef = useRef<HTMLInputElement>(null);
+  const switchRef = useRef<HTMLInputElement>(null);
 
-  constructor(props: FormProps) {
-    super(props);
-    this.formsTextRef = React.createRef();
-    this.formsDateRef = React.createRef();
-    this.formsSwitchRef = React.createRef();
-    this.state = {
-      inputValue: '',
-      checkBoxValue: [],
-      selectValue: '',
-      dateValue: '',
-      switchValue: '',
-      fileValue: undefined,
-    };
-  }
-
-  inputChangedHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ inputValue: event.target.value });
-  };
-
-  checkboxChangeHandler = (values: string[]) => {
-    this.setState({ checkBoxValue: values });
-  };
-
-  selectChangeHandler = (value: string) => {
-    this.setState({ selectValue: value });
-  };
-
-  dateChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ dateValue: event.target.value });
-  };
-
-  switchChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ switchValue: event.target.value });
-  };
-
-  fileChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ fileValue: event.target.files?.[0] });
-  };
-
-  submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSubmitted(true);
+    const newSongData: SongOnly = {
+      name: textInputValue,
+      genres: checkBoxValue,
+      album: selectedCard,
+      date: selectedDate,
+      video: switchValue,
+      cover: selectedFile,
+    };
+    setSongData(newSongData);
+    setTimeout(function () {
+      alert('The card was added!');
+    }, 1000);
   };
 
-  render() {
-    return (
-      <div className="forms-component">
-        <span>Help us adding a song!</span>
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    setSelectedFile(file || null);
+  };
+
+  return (
+    <div className="forms-component">
+      <div className="form-components">
+        <span className="form-components-name">Help us adding a song!</span>
         <form
-          onSubmit={this.submitHandler}
+          onSubmit={submitHandler}
           action="/upload"
           method="POST"
           encType="multipart/form-data"
+          className="main-form"
         >
-          <TextInput inputRef={this.formsTextRef} onInputChange={this.inputChangedHandler} />
-          <Checkbox
-            onCheckboxChange={this.checkboxChangeHandler}
-            checkedValues={this.state.checkBoxValue}
+          <TextInput
+            inputTextRef={inputTextRef}
+            onInputChange={(event) => setTextInputValue(event.target.value)}
           />
-          <Dropdown cards={cards} onSelectChange={this.selectChangeHandler} />
-          <DateInput onDateChange={this.dateChangeHandler} />
-          <Switcher onSwitchChange={this.switchChangeHandler} />
-          <FileUpload onFileChange={this.fileChangeHandler} />
-          <button type="submit">Submit</button>
+          <Checkbox
+            onCheckboxChange={(values) => setCheckBoxValue(values)}
+            checkedValues={checkBoxValue}
+          />
+          <Dropdown cards={cards} onSelectChange={(card) => setSelectedCard(card)} />
+          <DateInput onDateChange={(value) => setSelectedDate(value)} dateChoice={selectedDate} />
+          <Switcher
+            inputRef={switchRef}
+            onSwitchChange={(event) => setSwitchValue(event.target.checked)}
+          />
+          <FileUpload onFileChange={handleFileChange} />
+          <button type="submit" className="submit">
+            Submit
+          </button>
         </form>
-        <Songs />
-        <Footer />
       </div>
-    );
-  }
+      <div className="form-cards">
+        {submitted && songData && <SongCard key={songData.key} data={songData} />}
+        {songs.map((song) => (
+          <div key={song.songId} className="song-card">
+            <span className="song-name">{song.name}</span>
+            <p>Genres: {song.genres}</p>
+            <img
+              src={`/posters/${song.cover}.PNG`}
+              className="poster"
+              style={{
+                backgroundImage: song.cover !== '' ? `url( /${song.cover}.png)` : `url(./logo.png)`,
+                backgroundPosition: 'center',
+                backgroundSize: song.cover !== '' ? 'cover' : 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundColor: song.cover !== '' ? undefined : '#fff',
+              }}
+            />
+            <p>Album: {song.album}</p>
+            <p>Date: {song.date}</p>
+            <p>MV: {song.video ? 'Yes' : 'No'}</p>
+          </div>
+        ))}
+      </div>
+      <Footer />
+    </div>
+  );
 }
 
 export default Forms;

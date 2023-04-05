@@ -1,4 +1,4 @@
-import { Component, ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Card } from './data/cards';
 
 interface DropdownProps {
@@ -6,41 +6,30 @@ interface DropdownProps {
   onSelectChange: (value: string) => void;
 }
 
-interface DropdownState {
-  selectValue: string;
-}
+function Dropdown({ cards, onSelectChange }: DropdownProps) {
+  const [selectValue, setSelectValue] = useState('');
 
-class Dropdown extends Component<DropdownProps, DropdownState> {
-  constructor(props: DropdownProps) {
-    super(props);
-    this.state = {
-      selectValue: '',
-    };
-  }
-
-  selectChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
+  const selectChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
-    this.setState({ selectValue: value }, () => {
-      this.props.onSelectChange(value);
-    });
+    setSelectValue(value);
+    onSelectChange(value);
   };
 
-  render() {
-    const { cards } = this.props;
-    return (
-      <div>
-        <label htmlFor="album-choice">Choose the album, the song belongs to:</label>
-        <select name="albums" id="album-choice" onChange={this.selectChangeHandler} required>
-          <option value="">Choose the album</option>
-          {cards.map((card: Card) => (
-            <option key={card.cardId} value={card.name}>
-              {card.name}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  }
+  return (
+    <div className="dropdown-form">
+      <label htmlFor="album-choice" className="album-choice">
+        Choose the album, the song belongs to:{' '}
+      </label>
+      <select name="albums" id="album-choice" onChange={selectChangeHandler} required>
+        <option value={selectValue}>Choose the album</option>
+        {cards.map((card: Card) => (
+          <option key={card.cardId} value={card.name}>
+            {card.name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 }
 
 export default Dropdown;

@@ -1,4 +1,4 @@
-export interface SongStr {
+export interface Song {
   songId?: number;
   name: string;
   genres: string;
@@ -8,7 +8,7 @@ export interface SongStr {
   cover: string;
 }
 
-const songs: Array<SongStr> = [
+const songs: Array<Song> = [
   {
     songId: 0,
     name: 'I think I can fly',
