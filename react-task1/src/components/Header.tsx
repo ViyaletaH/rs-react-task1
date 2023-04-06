@@ -1,12 +1,35 @@
 import '../myStyles.css';
 import { useState, useEffect, ChangeEvent } from 'react';
 import HeaderBar from './HeaderBar';
-import CardHolder from './CardHolder';
+import CardHolder, { Image } from './CardHolder';
 import Footer from './Footer';
 import { cards, Card } from './data/cards';
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>('');
+  const [covers, setCovers] = useState<Image[] | null>(null);
+
+  const basicUrl =
+    'https://api.unsplash.com/search/photos?query=gloomy+sky&client_id=6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek';
+
+  useEffect(() => {
+    const headers = new Headers({
+      Authorization: 'Client-ID 6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek',
+    });
+
+    fetch(basicUrl, { headers })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setCovers(data);
+      })
+      .catch((error) => {
+        if (error) {
+          alert(error.message);
+        }
+      });
+  }, []);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(event.target.value);
@@ -33,7 +56,7 @@ const Header = () => {
   return (
     <div className="container">
       <HeaderBar onSearchChange={handleSearchChange} />
-      <CardHolder cards={filteredCards} />
+      {covers && <CardHolder cards={filteredCards} covers={covers} />}
       <Footer />
     </div>
   );
