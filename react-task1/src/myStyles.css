@@ -354,4 +354,46 @@ html, body {
   height: 30px;
 }
 
+.mv-link {
+  cursor: pointer;
+  width: fit-content;
+  animation: ani 2s linear infinite;
+}
 
+.poster-opened {
+  width: 400px;
+  height: 100%;
+  border-radius: 25px;
+}
+
+.card-data {
+  display: flex;
+  flex-direction: row;
+  width: 800px;
+  min-height: 300px;
+  align-self: center;
+  justify-self: center;
+  padding: 3%;
+}
+
+.card-main-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-details {
+  margin: 5%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 16px;
+}
+
+.album-name {
+  margin-bottom: 3%;
+  margin-left: 3%;
+  font-weight:600;
+  font-size: 20px;
+}
