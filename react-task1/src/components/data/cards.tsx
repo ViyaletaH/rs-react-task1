@@ -8,6 +8,7 @@ export interface Card {
   year: number;
   songs: number;
   date: string;
+  imageUrl?: string;
 }
 
 const cards: Array<Card> = [
@@ -110,40 +111,6 @@ const cards: Array<Card> = [
     year: 2005,
     songs: 9,
     date: '25.05.2005',
-  },
-  {
-    cardId: 10,
-    type: 'mini-album',
-    name: 'Reason of Crying',
-    video: 'https://www.youtube.com/watch?v=Uemcurb5CZU',
-    poster: 'reasons',
-    genre: 'alternative metal',
-    year: 2007,
-    songs: 6,
-    date: '18.07.2007',
-  },
-  {
-    cardId: 11,
-    type: 'mini-album',
-    name: 'gravitation',
-    video: 'https://www.youtube.com/watch?v=WcYwFapJkZk',
-    poster: 'gravitation',
-    genre: 'metalcore',
-    year: 2014,
-    songs: 5,
-    date: '24.09.2014',
-  },
-
-  {
-    cardId: 12,
-    type: 'mini-album',
-    name: 'chimera',
-    video: 'https://www.youtube.com/watch?v=MbKJo0a2eTo',
-    poster: 'chimera',
-    genre: 'metalcore',
-    year: 2016,
-    songs: 7,
-    date: '20.01.2016',
   },
 ];
 

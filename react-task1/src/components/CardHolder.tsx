@@ -1,4 +1,4 @@
-import { Card } from './data/cards';
+import { Card, cards } from './data/cards';
 
 export interface Data {
   results: Image[];
@@ -41,32 +41,15 @@ export interface Image {
 }
 
 interface CardHolderProps {
-  cards: Card[];
   covers: Data;
 }
 
-const CardHolder = ({ cards, covers }: CardHolderProps) => {
+const CardHolder = ({ covers }: CardHolderProps) => {
   console.log(covers);
+  console.log(cards);
   return (
     <div className="card-holder">
-      {covers &&
-        covers.results.map((cover: Image) => (
-          <div key={cover.id} className="card">
-            <img
-              src={cover.urls.regular}
-              className="poster"
-              style={{
-                backgroundImage: `${cover.urls.regular}`,
-                backgroundPosition: 'center',
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: '#fff',
-              }}
-              alt="album cover"
-            />
-          </div>
-        ))}
-      {/* {cards.map((card: Card) => (
+      {cards.map((card: Card, index: number) => (
         <div
           key={card.cardId}
           data-testid={card.cardId}
@@ -77,23 +60,20 @@ const CardHolder = ({ cards, covers }: CardHolderProps) => {
             {card.type}: {card.name}
           </h2>
           <img
-            src={results.urls.regular}
+            src={covers.results[index].urls.regular}
             className="poster"
             style={{
-              backgroundImage: card.poster !== '' ? `url( /${card.poster}.png)` : `url(./logo.png)`,
+              backgroundImage: `${covers.results[index]?.urls.regular}`,
               backgroundPosition: 'center',
-              backgroundSize: card.poster !== '' ? 'cover' : 'contain',
+              backgroundSize: 'contain',
               backgroundRepeat: 'no-repeat',
-              backgroundColor: card.poster !== '' ? undefined : '#fff',
+              backgroundColor: '#fff',
             }}
             alt="album cover"
           />
-          <p>Genre: {card.genre}</p>
           <p>Year: {card.year}</p>
-          <p>Songs: {card.songs}</p>
-          <p>Date of release: {card.date}</p>
         </div>
-      ))} */}
+      ))}
     </div>
   );
 };

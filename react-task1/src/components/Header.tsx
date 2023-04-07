@@ -3,7 +3,7 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import HeaderBar from './HeaderBar';
 import CardHolder, { Data } from './CardHolder';
 import Footer from './Footer';
-import { cards, Card } from './data/cards';
+// import { cards, Card } from './data/cards';
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>('');
@@ -46,17 +46,20 @@ const Header = () => {
     localStorage.setItem('searchValue', searchValue);
   }, [searchValue]);
 
-  const filteredCards = cards.filter(
-    (card: Card) =>
-      card.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-      card.genre.toLowerCase().includes(searchValue.toLowerCase()) ||
-      card.date.includes(searchValue.toLowerCase())
-  );
+  // const filteredCards =
+  //   searchValue.trim() === ''
+  //     ? cards
+  //     : cards.filter(
+  //         (card: Card) =>
+  //           card.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //           card.genre.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //           card.date.includes(searchValue.toLowerCase())
+  //       );
 
   return (
     <div className="container">
       <HeaderBar onSearchChange={handleSearchChange} />
-      {covers && <CardHolder cards={filteredCards} covers={covers} />}
+      {covers && <CardHolder covers={covers} />}
       <Footer />
     </div>
   );

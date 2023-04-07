@@ -153,6 +153,10 @@
   padding: 5px;
 }
 
+.card {
+  align-items: center;
+}
+
 .card:hover {
   cursor: pointer;
   animation: ani 2s linear infinite;
@@ -182,6 +186,11 @@
   width: 125px;
   height: 125px;
   margin: 3px;
+}
+
+.poster {
+  width: 170px;
+  height: 150px;
 }
 
 .footer {
