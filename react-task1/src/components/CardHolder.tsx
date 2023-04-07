@@ -42,11 +42,13 @@ export interface Image {
 
 interface CardHolderProps {
   covers: Data;
+  onCardClick: (index: number, url: string) => void;
 }
 
-const CardHolder = ({ covers }: CardHolderProps) => {
-  console.log(covers);
-  console.log(cards);
+const CardHolder = ({ covers, onCardClick }: CardHolderProps) => {
+  const handleClick = (index: number, url: string) => {
+    onCardClick(index, url);
+  };
   return (
     <div className="card-holder">
       {cards.map((card: Card, index: number) => (
@@ -54,7 +56,7 @@ const CardHolder = ({ covers }: CardHolderProps) => {
           key={card.cardId}
           data-testid={card.cardId}
           className="card"
-          onClick={() => window.open(`${card.video}`, '_blank')}
+          onClick={() => handleClick(index, covers.results[index].urls.regular)}
         >
           <h2>
             {card.type}: {card.name}

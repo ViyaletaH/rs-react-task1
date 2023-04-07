@@ -1,5 +1,9 @@
 @import '../node_modules/reset-css/reset.css';
 
+body {
+  overflow-y: hidden;
+}
+
 .container {
   background-color: #6b6b6b;
   height: 100vh;
@@ -10,6 +14,7 @@
   margin: none;
   color: whitesmoke;
   align-items: center;
+  z-index: 97;
 }
 
 .header-bar {
@@ -118,6 +123,7 @@
   align-content: space-between;
   overflow-x: hidden;
   overflow-y: auto;
+  z-index: 98;
 }
 
 .card-holder::-webkit-scrollbar {
@@ -307,4 +313,26 @@ html, body {
 
 .form-components-name {
   font-size: large;
+}
+
+.overlay {
+  position: absolute;
+  background-color: #00000048;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  z-index: 99;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.open-card {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  z-index: 100;
+  background-color: #6b6b6b;
+  position: absolute;
 }

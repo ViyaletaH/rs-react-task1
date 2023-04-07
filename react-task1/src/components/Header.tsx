@@ -3,11 +3,17 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import HeaderBar from './HeaderBar';
 import CardHolder, { Data } from './CardHolder';
 import Footer from './Footer';
-// import { cards, Card } from './data/cards';
+import OpenCard from './OpenCard';
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [covers, setCovers] = useState<Data | null>(null);
+  const [showOverlay, setShowOverlay] = useState(false);
+
+  const handleOverlayClick = (index: number, url: string) => {
+    setShowOverlay(true);
+    alert(`Card ${index} was clicked with URL ${url}`);
+  };
 
   const basicUrl =
     'https://api.unsplash.com/search/photos?query=gloomy+sky&client_id=6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek';
@@ -55,11 +61,12 @@ const Header = () => {
   //           card.genre.toLowerCase().includes(searchValue.toLowerCase()) ||
   //           card.date.includes(searchValue.toLowerCase())
   //       );
-
+  console.log(showOverlay);
   return (
     <div className="container">
+      {showOverlay && <OpenCard />}
       <HeaderBar onSearchChange={handleSearchChange} />
-      {covers && <CardHolder covers={covers} />}
+      {covers && <CardHolder covers={covers} onCardClick={handleOverlayClick} />}
       <Footer />
     </div>
   );

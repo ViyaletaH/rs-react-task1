@@ -112,6 +112,17 @@ const cards: Array<Card> = [
     songs: 9,
     date: '25.05.2005',
   },
+  {
+    cardId: 10,
+    type: 'mini-album',
+    name: 'Reason of Crying',
+    video: 'https://www.youtube.com/watch?v=Uemcurb5CZU',
+    poster: 'reasons',
+    genre: 'alternative metal',
+    year: 2007,
+    songs: 6,
+    date: '18.07.2007',
+  },
 ];
 
 export { cards };
