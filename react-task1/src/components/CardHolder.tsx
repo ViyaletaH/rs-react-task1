@@ -1,5 +1,11 @@
 import { Card } from './data/cards';
 
+export interface Data {
+  results: Image[];
+  total: number;
+  total_pages: number;
+}
+
 export interface Image {
   id: string;
   created_at: string;
@@ -36,7 +42,7 @@ export interface Image {
 
 interface CardHolderProps {
   cards: Card[];
-  covers: Image[];
+  covers: Data;
 }
 
 const CardHolder = ({ cards, covers }: CardHolderProps) => {
@@ -50,7 +56,7 @@ const CardHolder = ({ cards, covers }: CardHolderProps) => {
               src={cover.urls.regular}
               className="poster"
               style={{
-                backgroundImage: `${results.urls.regular}`,
+                backgroundImage: `${cover.urls.regular}`,
                 backgroundPosition: 'center',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',

@@ -1,13 +1,13 @@
 import '../myStyles.css';
 import { useState, useEffect, ChangeEvent } from 'react';
 import HeaderBar from './HeaderBar';
-import CardHolder, { Image } from './CardHolder';
+import CardHolder, { Data } from './CardHolder';
 import Footer from './Footer';
 import { cards, Card } from './data/cards';
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const [covers, setCovers] = useState<Image[] | null>(null);
+  const [covers, setCovers] = useState<Data | null>(null);
 
   const basicUrl =
     'https://api.unsplash.com/search/photos?query=gloomy+sky&client_id=6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek';
