@@ -7,7 +7,7 @@ const Search = (props: SearchProps) => {
     <div className="searcher">
       <input
         type="text"
-        placeholder="I'm looking for..."
+        placeholder="Set custom covers for the albums!"
         autoFocus
         className="search"
         onChange={props.onSearchChange}

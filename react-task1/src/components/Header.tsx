@@ -9,10 +9,15 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [covers, setCovers] = useState<Data | null>(null);
   const [showOverlay, setShowOverlay] = useState(false);
+  const [cardOpen, setCardOpen] = useState<{ index: number; url: string } | null>(null);
 
   const handleOverlayClick = (index: number, url: string) => {
     setShowOverlay(true);
-    alert(`Card ${index} was clicked with URL ${url}`);
+    setCardOpen({ index, url });
+  };
+
+  const handleClosure = () => {
+    setShowOverlay(false);
   };
 
   const basicUrl =
@@ -64,7 +69,7 @@ const Header = () => {
   console.log(showOverlay);
   return (
     <div className="container">
-      {showOverlay && <OpenCard />}
+      {showOverlay && <OpenCard data={cardOpen} onCrossClick={handleClosure} />}
       <HeaderBar onSearchChange={handleSearchChange} />
       {covers && <CardHolder covers={covers} onCardClick={handleOverlayClick} />}
       <Footer />
