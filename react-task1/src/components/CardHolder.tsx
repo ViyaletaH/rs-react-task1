@@ -60,7 +60,7 @@ const CardHolder = ({ covers, onCardClick }: CardHolderProps) => {
           onClick={() => handleClick(index, covers.results[index].urls.regular)}
         >
           <h2>
-            {card.type}: {card.name} {index}
+            {card.type}: {card.name}
           </h2>
           <img
             src={covers.results[index].urls.regular}

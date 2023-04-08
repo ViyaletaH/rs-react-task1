@@ -10,6 +10,7 @@ const Header = () => {
   const [covers, setCovers] = useState<Data | null>(null);
   const [showOverlay, setShowOverlay] = useState(false);
   const [cardOpen, setCardOpen] = useState<{ index: number; url: string } | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const handleOverlayClick = (index: number, url: string) => {
     setShowOverlay(true);
@@ -27,13 +28,16 @@ const Header = () => {
     const headers = new Headers({
       Authorization: 'Client-ID 6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek',
     });
-
     fetch(basicUrl, { headers })
       .then((res) => {
         return res.json();
       })
       .then((data) => {
         setCovers(data);
+        setLoading(false);
+        if (data.results.length === 0) {
+          alert('no results for your request');
+        }
       })
       .catch((error) => {
         if (error) {
@@ -71,6 +75,12 @@ const Header = () => {
     <div className="container">
       {showOverlay && <OpenCard data={cardOpen} onCrossClick={handleClosure} />}
       <HeaderBar onSearchChange={handleSearchChange} />
+      {loading && (
+        <div className="loading-container">
+          <span>Loading...</span>
+          <div className="loading-bg"></div>
+        </div>
+      )}
       {covers && <CardHolder covers={covers} onCardClick={handleOverlayClick} />}
       <Footer />
     </div>
