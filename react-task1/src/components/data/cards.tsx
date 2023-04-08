@@ -101,7 +101,7 @@ const cards: Array<Card> = [
     date: '11.10.2014',
   },
   {
-    cardId: 9,
+    cardId: 8,
     type: 'mini-album',
     name: '獄-初犯型円盤',
     video:
@@ -113,7 +113,7 @@ const cards: Array<Card> = [
     date: '25.05.2005',
   },
   {
-    cardId: 10,
+    cardId: 9,
     type: 'mini-album',
     name: 'Reason of Crying',
     video: 'https://www.youtube.com/watch?v=Uemcurb5CZU',
