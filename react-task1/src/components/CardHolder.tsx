@@ -49,7 +49,6 @@ const CardHolder = ({ covers, onCardClick }: CardHolderProps) => {
   const handleClick = (index: number, url: string) => {
     onCardClick(index, url);
   };
-  console.log(cards);
   return (
     <div className="card-holder">
       {cards.map((card: Card, index: number) => (

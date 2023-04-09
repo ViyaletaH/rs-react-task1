@@ -11,6 +11,9 @@ const Header = () => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [cardOpen, setCardOpen] = useState<{ index: number; url: string } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [basicUrl, setBasicUrl] = useState<string>(
+    'https://api.unsplash.com/search/photos?query=gloomy+sky&client_id=6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek'
+  );
 
   const handleOverlayClick = (index: number, url: string) => {
     setShowOverlay(true);
@@ -20,9 +23,6 @@ const Header = () => {
   const handleClosure = () => {
     setShowOverlay(false);
   };
-
-  const basicUrl =
-    'https://api.unsplash.com/search/photos?query=gloomy+sky&client_id=6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek';
 
   useEffect(() => {
     const headers = new Headers({
@@ -44,10 +44,20 @@ const Header = () => {
           alert(error.message);
         }
       });
-  }, []);
+  }, [basicUrl]);
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Enter' && searchValue.length !== 0) {
+      const newRequest =
+        'https://api.unsplash.com/search/photos?query=' +
+        searchValue +
+        '&client_id=6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek';
+      setBasicUrl(newRequest);
+    }
   };
 
   useEffect(() => {
@@ -61,20 +71,10 @@ const Header = () => {
     localStorage.setItem('searchValue', searchValue);
   }, [searchValue]);
 
-  // const filteredCards =
-  //   searchValue.trim() === ''
-  //     ? cards
-  //     : cards.filter(
-  //         (card: Card) =>
-  //           card.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //           card.genre.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //           card.date.includes(searchValue.toLowerCase())
-  //       );
-  console.log(showOverlay);
   return (
     <div className="container">
       {showOverlay && <OpenCard data={cardOpen} onCrossClick={handleClosure} />}
-      <HeaderBar onSearchChange={handleSearchChange} />
+      <HeaderBar onSearchChange={handleSearchChange} onKeyPress={handleKeyPress} />
       {loading && (
         <div className="loading-container">
           <span>Loading...</span>
