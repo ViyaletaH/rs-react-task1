@@ -108,6 +108,7 @@ body {
   width: 400px;
   height: 25px;
   height: fit-content;
+  z-index: 98;
 }
 
 .card-holder {
