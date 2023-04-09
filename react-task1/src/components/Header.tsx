@@ -35,6 +35,7 @@ const Header = () => {
       .then((data) => {
         setCovers(data);
         setLoading(false);
+        localStorage.setItem('basicUrl', basicUrl);
         if (data.results.length === 0) {
           alert('no results for your request');
         }
@@ -61,15 +62,15 @@ const Header = () => {
   };
 
   useEffect(() => {
-    const storedSearchValue = localStorage.getItem('searchValue');
-    if (storedSearchValue) {
-      setSearchValue(storedSearchValue);
+    const storedBasicUrl = localStorage.getItem('basicUrl');
+    if (storedBasicUrl) {
+      setBasicUrl(storedBasicUrl);
+    } else {
+      setBasicUrl(
+        'https://api.unsplash.com/search/photos?query=gloomy+sky&client_id=6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek'
+      );
     }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('searchValue', searchValue);
-  }, [searchValue]);
 
   return (
     <div className="container">
