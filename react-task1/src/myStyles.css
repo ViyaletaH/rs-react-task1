@@ -1,5 +1,9 @@
 @import '../node_modules/reset-css/reset.css';
 
+body {
+  overflow-y: hidden;
+}
+
 .container {
   background-color: #6b6b6b;
   height: 100vh;
@@ -10,6 +14,7 @@
   margin: none;
   color: whitesmoke;
   align-items: center;
+  z-index: 97;
 }
 
 .header-bar {
@@ -103,6 +108,7 @@
   width: 400px;
   height: 25px;
   height: fit-content;
+  z-index: 98;
 }
 
 .card-holder {
@@ -118,6 +124,7 @@
   align-content: space-between;
   overflow-x: hidden;
   overflow-y: auto;
+  z-index: 98;
 }
 
 .card-holder::-webkit-scrollbar {
@@ -153,6 +160,10 @@
   padding: 5px;
 }
 
+.card {
+  align-items: center;
+}
+
 .card:hover {
   cursor: pointer;
   animation: ani 2s linear infinite;
@@ -182,6 +193,11 @@
   width: 125px;
   height: 125px;
   margin: 3px;
+}
+
+.poster {
+  width: 170px;
+  height: 150px;
 }
 
 .footer {
@@ -298,4 +314,130 @@ html, body {
 
 .form-components-name {
   font-size: large;
+}
+
+.overlay {
+  position: absolute;
+  background-color: #00000048;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  z-index: 99;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.open-card {
+  width: 60%;
+  height: 60%;
+  display: flex;
+  z-index: 100;
+  background-color: #6b6b6b;
+  position: absolute;
+  box-shadow: inset 0 0 7px #434343;
+  border-radius: 35px;
+  padding: 2%;
+  flex-direction: column;
+}
+
+.cross {
+  width: 30px;
+  height: 30px;
+  align-self: flex-end;
+  display: flex;
+  cursor: pointer;
+}
+
+.close-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.mv-link {
+  cursor: pointer;
+  width: fit-content;
+  animation: ani 2s linear infinite;
+}
+
+.poster-opened {
+  width: 400px;
+  height: 100%;
+  border-radius: 25px;
+}
+
+.card-data {
+  display: flex;
+  flex-direction: row;
+  width: 800px;
+  min-height: 300px;
+  align-self: center;
+  justify-self: center;
+  padding: 3%;
+}
+
+.card-main-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-details {
+  margin: 5%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 16px;
+}
+
+.album-name {
+  margin-bottom: 3%;
+  margin-left: 3%;
+  font-weight:600;
+  font-size: 20px;
+}
+
+.progress2 {
+  padding: 6px;
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.25);  
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.loading-container {
+  width: 80%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  background-color: #989898;
+  padding: 5% 10% 5% 10%;
+  justify-self: center;
+  justify-content: center; 
+  align-items: center;
+}
+
+.loading-bg {
+  margin-top: 10px;
+  height: 5px;
+  width: 150px;
+  border-radius: 5px;
+    background-image: linear-gradient(
+      150deg,
+      #27ffe2 0%,
+      rgb(77, 255, 92) 30%,
+      #e313ff 50%,
+      #fff800 100%
+    );
+    background-size: 200% auto;
+    animation: loading 1s linear infinite;
+    height: 2px;
+    width: 45%;
+} 
+
+@keyframes loading {
+  to {
+    background-position: 200% center;
+  }
 }

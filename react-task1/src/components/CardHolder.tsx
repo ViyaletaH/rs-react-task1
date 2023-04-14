@@ -1,38 +1,79 @@
-import { Card } from './data/cards';
+import { Card, cards } from './data/cards';
 
-export interface Cards {
-  cards: Card[];
+export interface Data {
+  results: Image[];
+  total: number;
+  total_pages: number;
 }
 
-const CardHolder = ({ cards }: Cards) => {
+export interface Image {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  promoted_at: string;
+  width: number;
+  height: number;
+  color: string;
+  blur_hash: string;
+  description: string;
+  alt_description: string;
+  urls: {
+    raw: string;
+    full: string;
+    regular: string;
+    small: string;
+    thumb: string;
+    small_s3: string;
+  };
+  links: {
+    self: string;
+    html: string;
+    download: string;
+    download_location: string;
+  };
+  likes: number;
+  liked_by_user: boolean;
+  current_user_collections: string[];
+  sponsorship: null;
+  topic_submissions: object;
+  user: object;
+  tags: Array<{ type: string; title: string; source: object }>;
+}
+
+interface CardHolderProps {
+  covers: Data;
+  onCardClick: (index: number, url: string) => void;
+}
+
+const CardHolder = ({ covers, onCardClick }: CardHolderProps) => {
+  const handleClick = (index: number, url: string) => {
+    onCardClick(index, url);
+  };
   return (
     <div className="card-holder">
-      {cards.map((card: Card) => (
+      {cards.map((card: Card, index: number) => (
         <div
           key={card.cardId}
           data-testid={card.cardId}
           className="card"
-          onClick={() => window.open(`${card.video}`, '_blank')}
+          onClick={() => handleClick(index, covers.results[index].urls.regular)}
         >
           <h2>
             {card.type}: {card.name}
           </h2>
           <img
-            src={`/posters/${card.poster}.PNG`}
+            src={covers.results[index].urls.regular}
             className="poster"
             style={{
-              backgroundImage: card.poster !== '' ? `url( /${card.poster}.png)` : `url(./logo.png)`,
+              backgroundImage: `${covers.results[index]?.urls.regular}`,
               backgroundPosition: 'center',
-              backgroundSize: card.poster !== '' ? 'cover' : 'contain',
+              backgroundSize: 'contain',
               backgroundRepeat: 'no-repeat',
-              backgroundColor: card.poster !== '' ? undefined : '#fff',
+              backgroundColor: '#fff',
             }}
             alt="album cover"
           />
-          <p>Genre: {card.genre}</p>
           <p>Year: {card.year}</p>
-          <p>Songs: {card.songs}</p>
-          <p>Date of release: {card.date}</p>
         </div>
       ))}
     </div>

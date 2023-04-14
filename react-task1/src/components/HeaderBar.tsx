@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface HeaderBarProps {
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 const HeaderBar = (props: HeaderBarProps) => {
   return (
@@ -18,7 +19,7 @@ const HeaderBar = (props: HeaderBarProps) => {
           <button className="forms">Forms</button>
         </Link>
       </div>
-      <Search onSearchChange={props.onSearchChange} />
+      <Search onSearchChange={props.onSearchChange} onKeyPress={props.onKeyPress} />
     </div>
   );
 };
