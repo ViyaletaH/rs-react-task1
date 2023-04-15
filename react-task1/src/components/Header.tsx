@@ -11,13 +11,11 @@ import { initialState } from './features/apiSlice';
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>('');
-  // const [covers, setCovers] = useState<Data | null>(null);
+  const [covers, setCovers] = useState<Data | null>(null);
   const [showOverlay, setShowOverlay] = useState(false);
   const [cardOpen, setCardOpen] = useState<{ index: number; url: string } | null>(null);
   const [loading, setLoading] = useState(true);
-  // const [basicUrl, setBasicUrl] = useState<string>(
-  //   'https://api.unsplash.com/search/photos?query=gloomy+sky&client_id=6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek'
-  // );
+  const [setBasicUrl] = useState<string>('');
   const { basicUrl } = useAppSelector((state) => state.apiSlice);
   const dispatch = useAppDispatch();
   const searchPhotos = createAction<string>('api/searchPhotos');
@@ -31,11 +29,28 @@ const Header = () => {
     setShowOverlay(false);
   };
 
-  const { data: defaultCovers, isLoading, error } = useGetDefaultCoversQuery(undefined);
-  const { data: customCovers, isLoading, error } = useGetCustomCoversQuery('');
+  const { data } = useGetDefaultCoversQuery(undefined);
+  const { data, isLoading, error } = useGetCustomCoversQuery('');
 
-  const getCustom = useGetCustomCoversQuery('');
+  // const getCustom = useGetCustomCoversQuery('');
   console.log(data);
+
+  const { data, isLoading, error } = useSelector((state) => state.basicUrlApi.fetchCovers);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (data) {
+      dispatch(data);
+      if (data.results.length === 0) {
+        alert('no results for your request');
+      }
+    }
+    if (error) {
+      dispatch(setError(error.message));
+      alert(error.message);
+    }
+  }, [data, error, dispatch]);
+
   // useEffect(() => {
   //   const headers = new Headers({
   //     Authorization: 'Client-ID 6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek',
@@ -74,9 +89,8 @@ const Header = () => {
   };
 
   // useEffect(() => {
-  //   const storedBasicUrl = localStorage.getItem('basicUrl');
-  //   if (storedBasicUrl) {
-  //     setBasicUrl(storedBasicUrl);
+  //   if (basicUrl) {
+  //     setBasicUrl(basicUrl);
   //   } else {
   //     setBasicUrl(
   //       'https://api.unsplash.com/search/photos?query=gloomy+sky&client_id=6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek'
@@ -88,13 +102,13 @@ const Header = () => {
     <div className="container">
       {showOverlay && <OpenCard data={cardOpen} onCrossClick={handleClosure} />}
       <HeaderBar onSearchChange={handleSearchChange} onKeyPress={handleKeyPress} />
-      {loading && (
+      {isLoading && (
         <div className="loading-container">
           <span>Loading...</span>
           <div className="loading-bg"></div>
         </div>
       )}
-      {/* {covers && <CardHolder covers={covers} onCardClick={handleOverlayClick} />} */}
+      {covers && <CardHolder covers={covers} onCardClick={handleOverlayClick} />}
       <Footer />
     </div>
   );
