@@ -6,16 +6,30 @@ import Footer from './Footer';
 import OpenCard from './OpenCard';
 import { useAppDispatch, useAppSelector } from './hooks/reduxHooks';
 import { createAction } from '@reduxjs/toolkit';
-import { useGetDefaultCoversQuery, useGetCustomCoversQuery } from './services/apiDataFetch';
-import { initialState } from './features/apiSlice';
+// import { useGetDefaultCoversQuery, useGetCustomCoversQuery } from './services/apiDataFetch';
+// import { initialState } from './features/apiSlice';
+import { setCovers, setLoading, setError } from './features/coversSlice';
+import { useSelector } from 'react-redux';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+
+// import { coversFetch } from './services/apiDataFetch';
+interface RootState {
+  coversFetch: {
+    getDefaultCovers: {
+      data: Data | null;
+      isLoading: boolean;
+      error: FetchBaseQueryError | null;
+    };
+  };
+}
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const [covers, setCovers] = useState<Data | null>(null);
+  // const [covers, setCovers] = useState<Data | null>(null);
   const [showOverlay, setShowOverlay] = useState(false);
   const [cardOpen, setCardOpen] = useState<{ index: number; url: string } | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [setBasicUrl] = useState<string>('');
+  // const [loading, setLoading] = useState(true);
+  // const [setBasicUrl] = useState<string>('');
   const { basicUrl } = useAppSelector((state) => state.apiSlice);
   const dispatch = useAppDispatch();
   const searchPhotos = createAction<string>('api/searchPhotos');
@@ -29,27 +43,31 @@ const Header = () => {
     setShowOverlay(false);
   };
 
-  const { data } = useGetDefaultCoversQuery(undefined);
-  const { data, isLoading, error } = useGetCustomCoversQuery('');
+  // const { data } = useGetDefaultCoversQuery(undefined);
+  // const { data, isLoading, error } = useGetCustomCoversQuery('');
 
   // const getCustom = useGetCustomCoversQuery('');
-  console.log(data);
+  // console.log(data);
 
-  const { data, isLoading, error } = useSelector((state) => state.basicUrlApi.fetchCovers);
-  const dispatch = useDispatch();
+  const { data, isLoading, error } = useSelector(
+    (state: RootState) => state.coversFetch.getDefaultCovers
+  );
 
   useEffect(() => {
     if (data) {
-      dispatch(data);
+      dispatch(setCovers(data));
+      dispatch(setLoading(false));
+      localStorage.setItem('basicUrl', basicUrl);
       if (data.results.length === 0) {
         alert('no results for your request');
       }
     }
     if (error) {
-      dispatch(setError(error.message));
-      alert(error.message);
+      dispatch(setError(error.status));
+      dispatch(setLoading(false));
+      alert(error.status);
     }
-  }, [data, error, dispatch]);
+  }, [data, error, dispatch, basicUrl]);
 
   // useEffect(() => {
   //   const headers = new Headers({
@@ -108,7 +126,7 @@ const Header = () => {
           <div className="loading-bg"></div>
         </div>
       )}
-      {covers && <CardHolder covers={covers} onCardClick={handleOverlayClick} />}
+      {/* {covers && <CardHolder covers={covers} onCardClick={handleOverlayClick} />} */}
       <Footer />
     </div>
   );
