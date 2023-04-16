@@ -214,7 +214,7 @@ body {
 
 html,
 body {
-  overflow-x: hidden
+  overflow-x: hidden;
 }
 
 .forms-component {
@@ -425,11 +425,13 @@ body {
   height: 5px;
   width: 150px;
   border-radius: 5px;
-  background-image: linear-gradient(150deg,
-      #27ffe2 0%,
-      rgb(77, 255, 92) 30%,
-      #e313ff 50%,
-      #fff800 100%);
+  background-image: linear-gradient(
+    150deg,
+    #27ffe2 0%,
+    rgb(77, 255, 92) 30%,
+    #e313ff 50%,
+    #fff800 100%
+  );
   background-size: 200% auto;
   animation: loading 1s linear infinite;
   height: 2px;
