@@ -43,7 +43,6 @@ const Header = () => {
         const response = await dispatch(fetchCustomCovers(searchValue));
         const customCovers = response.payload;
         setUseCustomCovers(true);
-        console.log(searchValue, customCovers);
         if (customCovers && customCovers.results) {
           dispatch(setCovers(defaultData));
           dispatch(setLoading(false));
