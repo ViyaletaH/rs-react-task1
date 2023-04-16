@@ -212,9 +212,10 @@ body {
   cursor: pointer;
 }
 
-html, body {
-  overflow-x:hidden 
-} 
+html,
+body {
+  overflow-x: hidden;
+}
 
 .forms-component {
   display: flex;
@@ -308,7 +309,8 @@ html, body {
 .release-date,
 .switcher-name,
 .checkbox-name,
-.textinput-name, .form-components-name {
+.textinput-name,
+.form-components-name {
   font-weight: 600;
 }
 
@@ -395,14 +397,14 @@ html, body {
 .album-name {
   margin-bottom: 3%;
   margin-left: 3%;
-  font-weight:600;
+  font-weight: 600;
   font-size: 20px;
 }
 
 .progress2 {
   padding: 6px;
   border-radius: 30px;
-  background: rgba(0, 0, 0, 0.25);  
+  background: rgba(0, 0, 0, 0.25);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
 }
 
@@ -414,7 +416,7 @@ html, body {
   background-color: #989898;
   padding: 5% 10% 5% 10%;
   justify-self: center;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
 }
 
@@ -423,18 +425,18 @@ html, body {
   height: 5px;
   width: 150px;
   border-radius: 5px;
-    background-image: linear-gradient(
-      150deg,
-      #27ffe2 0%,
-      rgb(77, 255, 92) 30%,
-      #e313ff 50%,
-      #fff800 100%
-    );
-    background-size: 200% auto;
-    animation: loading 1s linear infinite;
-    height: 2px;
-    width: 45%;
-} 
+  background-image: linear-gradient(
+    150deg,
+    #27ffe2 0%,
+    rgb(77, 255, 92) 30%,
+    #e313ff 50%,
+    #fff800 100%
+  );
+  background-size: 200% auto;
+  animation: loading 1s linear infinite;
+  height: 2px;
+  width: 45%;
+}
 
 @keyframes loading {
   to {
