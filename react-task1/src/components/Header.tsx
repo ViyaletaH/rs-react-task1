@@ -1,32 +1,27 @@
 import '../myStyles.css';
 import { useState, useEffect, ChangeEvent } from 'react';
 import HeaderBar from './HeaderBar';
-import CardHolder from './CardHolder';
+import CardHolder, { Data } from './CardHolder';
 import Footer from './Footer';
 import OpenCard from './OpenCard';
 import { useAppDispatch } from './hooks/reduxHooks';
 import { setCovers, setLoading, setError } from './features/coversSlice';
-// import { useSelector } from 'react-redux';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useGetCustomCoversQuery, useGetDefaultCoversQuery } from './services/apiDataFetch';
-
-// interface RootState {
-//   coversFetch: {
-//     getDefaultCovers: {
-//       data: Data | null;
-//       isLoading: boolean;
-//       error: FetchBaseQueryError | null;
-//     };
-//   };
-// }
+import { useGetDefaultCoversQuery, useGetCustomCoversQuery } from './services/apiDataFetch';
+import { fetchCustomCovers } from './features/coversSlice';
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [showOverlay, setShowOverlay] = useState(false);
   const [cardOpen, setCardOpen] = useState<{ index: number; url: string } | null>(null);
   const dispatch = useAppDispatch();
-  const { data: customData, error: customError } = useGetCustomCoversQuery('');
-  const { data: defaultData, isLoading, error: defaultError } = useGetDefaultCoversQuery(undefined);
+  const [useCustomCovers, setUseCustomCovers] = useState(false);
+  const { data: defaultData, error: defaultError } = useGetDefaultCoversQuery(undefined);
+  const {
+    data: customCovers,
+    isLoading,
+    error: customError,
+  } = useGetCustomCoversQuery(searchValue);
 
   const handleOverlayClick = (index: number, url: string) => {
     setShowOverlay(true);
@@ -37,21 +32,55 @@ const Header = () => {
     setShowOverlay(false);
   };
 
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  };
+
+  const handleKeyPress = async (event: React.KeyboardEvent<HTMLInputElement>): Promise<void> => {
+    if (event.key === 'Enter' && searchValue.length !== 0) {
+      dispatch(fetchCustomCovers(searchValue));
+      try {
+        const response = await dispatch(fetchCustomCovers(searchValue));
+        const customCovers = response.payload;
+        setUseCustomCovers(true);
+        console.log(searchValue, customCovers);
+        if (customCovers && customCovers.results) {
+          dispatch(setCovers(defaultData));
+          dispatch(setLoading(false));
+          if (defaultData?.results.length === 0) {
+            alert('no results for your request');
+          }
+        }
+      } catch (error) {
+        if (customError && 'message' in customError) {
+          dispatch(setError(customError.message));
+          dispatch(setLoading(false));
+          alert(customError.message);
+        }
+        if (customError && 'status' in customError) {
+          dispatch(setError(customError.status));
+          dispatch(setLoading(false));
+          alert(customError.status);
+        }
+      }
+    }
+  };
+
   useEffect(() => {
     function handleFetchError(error: FetchBaseQueryError) {
       dispatch(setError(error.status));
       dispatch(setLoading(false));
       alert(error.status);
     }
-    if (defaultData || customData) {
-      let data;
-      customData ? (data = customData) : (data = defaultData);
-      dispatch(setCovers(data));
+    if (useCustomCovers) {
+      defaultData && { ...defaultData, results: customCovers?.results };
+      dispatch(setCovers(defaultData));
       dispatch(setLoading(false));
-      if (data?.results.length === 0) {
+      if (defaultData?.results.length === 0) {
         alert('no results for your request');
       }
     }
+
     if (defaultError || customError) {
       let error: FetchBaseQueryError;
       if (customError && 'status' in customError) {
@@ -62,51 +91,28 @@ const Header = () => {
         handleFetchError(error);
       }
     }
-  }, [customData, defaultData, customError, defaultError, dispatch]);
+  }, [customCovers, defaultData, customError, defaultError, dispatch, useCustomCovers]);
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
-  };
-
-  const HandleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter' && searchValue.length !== 0) {
-      const newRequest =
-        'https://api.unsplash.com/search/photos?query=' +
-        searchValue +
-        '&client_id=6adFL1um8JXRIrgsfChxvwqAc_f1MVYZKe5lOBtuSek';
-      customData?.refetch(newRequest);
-      if (customData) {
-        dispatch(setCovers(customData));
-        dispatch(setLoading(false));
-        if (customData.results.length === 0) {
-          alert('no results for your request');
-        }
-      }
-      if (customError && 'message' in customError) {
-        dispatch(setError(customError.message));
-        dispatch(setLoading(false));
-        alert(customError.message);
-      }
-      if (customError && 'status' in customError) {
-        dispatch(setError(customError.status));
-        dispatch(setLoading(false));
-        alert(customError.status);
-      }
-    }
-  };
+  let covers: Data = customCovers ?? defaultData ?? { results: [], total: 0, total_pages: 0 };
+  if (customCovers && customCovers.results.length > 8) {
+    covers = customCovers;
+  } else {
+    covers = defaultData || { results: [], total: 0, total_pages: 0 };
+  }
 
   return (
     <div className="container">
       {showOverlay && <OpenCard data={cardOpen} onCrossClick={handleClosure} />}
-      <HeaderBar onSearchChange={handleSearchChange} onKeyPress={HandleKeyPress} />
+      <HeaderBar onSearchChange={handleSearchChange} onKeyPress={handleKeyPress} />
       {isLoading && (
         <div className="loading-container">
           <span>Loading...</span>
           <div className="loading-bg"></div>
         </div>
       )}
-      {defaultData && <CardHolder covers={defaultData} onCardClick={handleOverlayClick} />}
-      {/* {customData && <CardHolder covers={customData} onCardClick={handleOverlayClick} />} */}
+      {defaultData && defaultData !== undefined && (
+        <CardHolder covers={covers} onCardClick={handleOverlayClick} />
+      )}
       <Footer />
     </div>
   );

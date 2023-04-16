@@ -4,7 +4,6 @@ export interface Data {
   results: Image[];
   total: number;
   total_pages: number;
-  refetch: (request: string) => void;
 }
 
 export interface Image {
@@ -57,16 +56,16 @@ const CardHolder = ({ covers, onCardClick }: CardHolderProps) => {
           key={card.cardId}
           data-testid={card.cardId}
           className="card"
-          onClick={() => handleClick(index, covers.results[index].urls.regular)}
+          onClick={() => handleClick(index, covers?.results[index].urls.regular)}
         >
           <h2>
             {card.type}: {card.name}
           </h2>
           <img
-            src={covers.results[index].urls.regular}
+            src={covers?.results[index].urls.regular}
             className="poster"
             style={{
-              backgroundImage: `${covers.results[index]?.urls.regular}`,
+              backgroundImage: `${covers?.results[index]?.urls.regular}`,
               backgroundPosition: 'center',
               backgroundSize: 'contain',
               backgroundRepeat: 'no-repeat',
