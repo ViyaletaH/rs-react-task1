@@ -1,6 +1,5 @@
 import React, { useState, useRef, ChangeEvent } from 'react';
 import Footer from './Footer';
-import '../myStyles.css';
 import TextInput from './TextInput';
 import Checkbox from './Checkbox';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -16,7 +15,7 @@ export interface Contact {
 }
 
 function Forms() {
-  const [checkBoxValue, setCheckBoxValue] = useState<string[]>([]);
+  const [checkBoxValue, setCheckBoxValue] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState(false);
   const [data, setData] = useState<Contact | null>(null);
   const [number, setNumber] = useState('');
@@ -52,6 +51,10 @@ function Forms() {
     setmessageValue(enteredValue);
   };
 
+  const handleCheckboxChange = () => {
+    setCheckBoxValue(true);
+  };
+
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
@@ -61,7 +64,7 @@ function Forms() {
       mail: email,
       phone: number,
       message: messageValue,
-      agreement: true,
+      agreement: checkBoxValue,
     };
     setData(newContactData);
     setTimeout(function () {
@@ -90,10 +93,7 @@ function Forms() {
             onNumberChange={handleNumberChange}
             onEmailChange={handleEmailChange}
           />
-          <Checkbox
-            onCheckboxChange={(value) => setCheckBoxValue(value)}
-            checkedValues={checkBoxValue}
-          />
+          <Checkbox onCheckboxChange={handleCheckboxChange} />
           <Textarea messageRef={messageRef} onMessageChange={handleMessageChange} />
           <button type="submit" className="submit">
             Submit
