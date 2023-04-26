@@ -18,15 +18,12 @@ function Dropdown({ cards, onSelectChange }: DropdownProps) {
   return (
     <div className="dropdown-form">
       <label htmlFor="album-choice" className="album-choice">
-        Choose the album, the song belongs to:{' '}
+        Make a choice:{' '}
       </label>
       <select name="albums" id="album-choice" onChange={selectChangeHandler} required>
         <option value={selectValue}>Choose the album</option>
-        {cards.map((card: Card) => (
-          <option key={card.cardId} value={card.name}>
-            {card.name}
-          </option>
-        ))}
+        <option key={react} value={react}>React.js</option>
+        <option key={vue} value={vue}>Vue.js</option>
       </select>
     </div>
   );

@@ -1,67 +1,72 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, ChangeEvent } from 'react';
 import Footer from './Footer';
 import '../myStyles.css';
 import TextInput from './TextInput';
 import Checkbox from './Checkbox';
-import Dropdown from './Dropdown';
-import { cards } from './data/cards';
-import DateInput from './DateInput';
 import 'react-datepicker/dist/react-datepicker.css';
-import Switcher from './Switcher';
-import FileUpload from './FileUpload';
-import { songs } from './data/songs';
 import SongCard from './SongCard';
+import Textarea from './Textarea';
 
-export interface SongOnly {
-  key?: string;
-  name: string;
-  genres: string[];
-  album: string;
-  date: string;
-  video: boolean;
-  cover: File | null;
-  coverUrl?: string;
+export interface Contact {
+  first: string;
+  last: string;
+  mail: string;
+  phone: string;
+  message: string;
+  agreement: boolean;
 }
 
 function Forms() {
-  const [textInputValue, setTextInputValue] = useState('');
   const [checkBoxValue, setCheckBoxValue] = useState<string[]>([]);
-  const [selectedCard, setSelectedCard] = useState<string>('');
-  const [selectedDate, setSelectedDate] = useState('');
-  const [switchValue, setSwitchValue] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
-  const [songData, setSongData] = useState<SongOnly | null>(null);
+  const [data, setData] = useState<Contact | null>(null);
+  const [number, setNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [nameValue, setNameValue] = useState('');
+  const [surnameValue, setSurnameValue] = useState('');
 
-  const inputTextRef = useRef<HTMLInputElement>(null);
-  const switchRef = useRef<HTMLInputElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+
+  const handleNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const enteredValue = event.target.value;
+    const regEx = /^[0-9\b]/;
+    if (enteredValue === '' || regEx.test(enteredValue)) {
+      setNumber(enteredValue);
+    }
+  };
+
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const enteredValue = event.target.value;
+    const emailRegEx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegEx.test(enteredValue)) {
+      setEmail(enteredValue);
+    }
+  };
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
-    const newSongData: SongOnly = {
-      name: textInputValue,
-      genres: checkBoxValue,
-      album: selectedCard,
-      date: selectedDate,
-      video: switchValue,
-      cover: selectedFile,
+    const newContactData: Contact = {
+      first: nameValue,
+      last: surnameValue,
+      mail: email,
+      phone: number,
+      message: string,
+      agreement: boolean,
     };
-    setSongData(newSongData);
+    setData(newContactData);
     setTimeout(function () {
-      alert('The card was added!');
+      alert('Your data was sent!');
     }, 1000);
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    setSelectedFile(file || null);
   };
 
   return (
     <div className="forms-component">
       <div className="form-components">
-        <span className="form-components-name">Help us adding a song!</span>
+        <span className="form-components-name">Fill in the form:</span>
         <form
           onSubmit={submitHandler}
           action="/upload"
@@ -70,20 +75,20 @@ function Forms() {
           className="main-form"
         >
           <TextInput
-            inputTextRef={inputTextRef}
-            onInputChange={(event) => setTextInputValue(event.target.value)}
+            firstNameRef={firstNameRef}
+            lastNameRef={lastNameRef}
+            emailRef={emailRef}
+            phoneRef={phoneRef}
+            onNameChange={(event) => setNameValue(event.target.value)}
+            onSurnameChange={(event) => setSurnameValue(event.target.value)}
+            onNumberChange={handleNumberChange}
+            onEmailChange={handleEmailChange}
           />
           <Checkbox
             onCheckboxChange={(values) => setCheckBoxValue(values)}
             checkedValues={checkBoxValue}
           />
-          <Dropdown cards={cards} onSelectChange={(card) => setSelectedCard(card)} />
-          <DateInput onDateChange={(value) => setSelectedDate(value)} dateChoice={selectedDate} />
-          <Switcher
-            inputRef={switchRef}
-            onSwitchChange={(event) => setSwitchValue(event.target.checked)}
-          />
-          <FileUpload onFileChange={handleFileChange} />
+          <Textarea />
           <button type="submit" className="submit">
             Submit
           </button>
@@ -91,26 +96,6 @@ function Forms() {
       </div>
       <div className="form-cards">
         {submitted && songData && <SongCard key={songData.key} data={songData} />}
-        {songs.map((song) => (
-          <div key={song.songId} className="song-card">
-            <span className="song-name">{song.name}</span>
-            <p>Genres: {song.genres}</p>
-            <img
-              src={`/posters/${song.cover}.PNG`}
-              className="poster"
-              style={{
-                backgroundImage: song.cover !== '' ? `url( /${song.cover}.png)` : `url(./logo.png)`,
-                backgroundPosition: 'center',
-                backgroundSize: song.cover !== '' ? 'cover' : 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: song.cover !== '' ? undefined : '#fff',
-              }}
-            />
-            <p>Album: {song.album}</p>
-            <p>Date: {song.date}</p>
-            <p>MV: {song.video ? 'Yes' : 'No'}</p>
-          </div>
-        ))}
       </div>
       <Footer />
     </div>
