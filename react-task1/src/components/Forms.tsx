@@ -4,7 +4,6 @@ import '../myStyles.css';
 import TextInput from './TextInput';
 import Checkbox from './Checkbox';
 import 'react-datepicker/dist/react-datepicker.css';
-import SongCard from './SongCard';
 import Textarea from './Textarea';
 
 export interface Contact {
@@ -24,11 +23,13 @@ function Forms() {
   const [email, setEmail] = useState('');
   const [nameValue, setNameValue] = useState('');
   const [surnameValue, setSurnameValue] = useState('');
+  const [messageValue, setmessageValue] = useState('');
 
   const firstNameRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   const handleNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
     const enteredValue = event.target.value;
@@ -46,6 +47,11 @@ function Forms() {
     }
   };
 
+  const handleMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const enteredValue = event.target.value;
+    setmessageValue(enteredValue);
+  };
+
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitted(true);
@@ -54,13 +60,13 @@ function Forms() {
       last: surnameValue,
       mail: email,
       phone: number,
-      message: string,
-      agreement: boolean,
+      message: messageValue,
+      agreement: true,
     };
     setData(newContactData);
     setTimeout(function () {
-      alert('Your data was sent!');
-    }, 1000);
+      alert(`${newContactData.first}, your data was sent!`);
+    }, 500);
   };
 
   return (
@@ -85,18 +91,16 @@ function Forms() {
             onEmailChange={handleEmailChange}
           />
           <Checkbox
-            onCheckboxChange={(values) => setCheckBoxValue(values)}
+            onCheckboxChange={(value) => setCheckBoxValue(value)}
             checkedValues={checkBoxValue}
           />
-          <Textarea />
+          <Textarea messageRef={messageRef} onMessageChange={handleMessageChange} />
           <button type="submit" className="submit">
             Submit
           </button>
         </form>
       </div>
-      <div className="form-cards">
-        {submitted && songData && <SongCard key={songData.key} data={songData} />}
-      </div>
+      {/* <div className="form-cards">{submitted && data}</div> */}
       <Footer />
     </div>
   );

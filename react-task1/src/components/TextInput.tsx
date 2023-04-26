@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react';
-import '../myStyles.css';
 
 interface TextInputProps {
   inputTextRef?: React.RefObject<HTMLInputElement>;

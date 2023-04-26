@@ -466,3 +466,7 @@ html, body {
 textarea, input {
   border-radius: 10px;
 }
+
+textarea {
+  resize: none;
+}
