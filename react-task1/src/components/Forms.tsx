@@ -69,6 +69,24 @@ function Forms() {
     setData(newContactData);
     setTimeout(function () {
       alert(`${newContactData.first}, your data was sent!`);
+      setNameValue('');
+      setSurnameValue('');
+      setEmail('');
+      setNumber('');
+      setmessageValue('');
+      setCheckBoxValue(false);
+      if (firstNameRef.current) {
+        firstNameRef.current.value = '';
+        firstNameRef.current.focus();
+      }
+      if (lastNameRef.current) {
+        lastNameRef.current.value = '';
+      }
+      if (messageRef.current) {
+        messageRef.current.value = '';
+      }
+      emailRef!.current!.value = '';
+      phoneRef!.current!.value = '';
     }, 500);
   };
 
@@ -100,7 +118,6 @@ function Forms() {
           </button>
         </form>
       </div>
-      {/* <div className="form-cards">{submitted && data}</div> */}
       <Footer />
     </div>
   );

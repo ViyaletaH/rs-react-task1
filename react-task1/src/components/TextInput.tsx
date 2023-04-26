@@ -1,11 +1,10 @@
 import React, { ChangeEvent } from 'react';
 
 interface TextInputProps {
-  inputTextRef?: React.RefObject<HTMLInputElement>;
   firstNameRef?: React.RefObject<HTMLInputElement>;
   lastNameRef?: React.RefObject<HTMLInputElement>;
-  emailRef?: React.RefObject<HTMLInputElement>;
-  phoneRef?: React.RefObject<HTMLInputElement>;
+  emailRef: React.RefObject<HTMLInputElement>;
+  phoneRef: React.RefObject<HTMLInputElement>;
   onNameChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onSurnameChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onNumberChange: (event: ChangeEvent<HTMLInputElement>) => void;
