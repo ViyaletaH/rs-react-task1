@@ -32,7 +32,7 @@ function Forms() {
 
   const handleNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
     const enteredValue = event.target.value;
-    const regEx = /^[0-9\b]/;
+    const regEx = /^[0-9]*$/;
     if (enteredValue === '' || regEx.test(enteredValue)) {
       setNumber(enteredValue);
     }
@@ -69,11 +69,6 @@ function Forms() {
     setData(newContactData);
     setTimeout(function () {
       alert(`${newContactData.first}, your data was sent!`);
-      setNameValue('');
-      setSurnameValue('');
-      setEmail('');
-      setNumber('');
-      setmessageValue('');
       setCheckBoxValue(false);
       if (firstNameRef.current) {
         firstNameRef.current.value = '';
@@ -87,6 +82,7 @@ function Forms() {
       }
       emailRef!.current!.value = '';
       phoneRef!.current!.value = '';
+      setSubmitted(false);
     }, 500);
   };
 
@@ -111,7 +107,11 @@ function Forms() {
             onNumberChange={handleNumberChange}
             onEmailChange={handleEmailChange}
           />
-          <Checkbox onCheckboxChange={handleCheckboxChange} />
+          <Checkbox
+            onCheckboxChange={handleCheckboxChange}
+            checkBoxValue={checkBoxValue}
+            submitted={submitted}
+          />
           <Textarea messageRef={messageRef} onMessageChange={handleMessageChange} />
           <button type="submit" className="submit">
             Submit

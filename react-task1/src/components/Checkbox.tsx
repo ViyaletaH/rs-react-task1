@@ -1,10 +1,22 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, useState, useEffect } from 'react';
 
 export interface CheckboxProps {
   onCheckboxChange: ChangeEventHandler<HTMLInputElement>;
+  checkBoxValue: boolean;
+  submitted: boolean;
 }
 
-const Checkbox = ({ onCheckboxChange }: CheckboxProps) => {
+const Checkbox = ({ onCheckboxChange, checkBoxValue, submitted }: CheckboxProps) => {
+  const [check, setCheck] = useState<boolean | undefined>(undefined);
+
+  useEffect(() => {
+    if (checkBoxValue && submitted) {
+      setCheck(false);
+    } else {
+      setCheck(undefined);
+    }
+  }, [check, checkBoxValue, submitted]);
+
   return (
     <div className="checkbox-form">
       <fieldset>
@@ -16,6 +28,7 @@ const Checkbox = ({ onCheckboxChange }: CheckboxProps) => {
             name="policy-agreement"
             value="agree"
             required
+            checked={check}
             onChange={onCheckboxChange}
           />
           <label htmlFor="alternative">I agree</label>
