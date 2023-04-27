@@ -1,5 +1,6 @@
 {
   "name": "react-task1",
+  "homepage": "https://viyaletah.github.io/rs-react-task1",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,7 +9,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && prettier --check .",
-    "test": "jest --watchAll --coverage"
+    "test": "jest --watchAll --coverage",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@babel/cli": "^7.21.0",
