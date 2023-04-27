@@ -1,5 +1,15 @@
-import { SongOnly } from './Forms';
 import { useState, useRef, useEffect } from 'react';
+
+interface SongOnly {
+  key?: string;
+  name: string;
+  genres: string[];
+  album: string;
+  date: string;
+  video: boolean;
+  cover: File | null;
+  coverUrl?: string;
+}
 
 interface SongCardProps {
   data: SongOnly;
