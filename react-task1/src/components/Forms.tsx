@@ -33,8 +33,12 @@ function Forms() {
   const handleNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
     const enteredValue = event.target.value;
     const regEx = /^[0-9]*$/;
-    if (enteredValue === '' || regEx.test(enteredValue)) {
+    if (regEx.test(enteredValue)) {
       setNumber(enteredValue);
+    }
+    if (!regEx.test(enteredValue)) {
+      phoneRef!.current!.value = '';
+      setNumber('');
     }
   };
 
