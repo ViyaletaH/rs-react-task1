@@ -212,15 +212,16 @@ body {
   cursor: pointer;
 }
 
-html, body {
-  overflow-x:hidden 
-} 
+html,
+body {
+  overflow-x: hidden
+}
 
 .forms-component {
   display: flex;
   position: relative;
   background-color: #989898;
-  height: fit-content;
+  height: 90%;
   min-width: 100vw;
   overflow-x: hidden;
   flex-direction: column;
@@ -244,6 +245,7 @@ html, body {
 
 .form-components {
   padding: 0.7%;
+  width: 20%;
 }
 
 .form-cards {
@@ -308,7 +310,8 @@ html, body {
 .release-date,
 .switcher-name,
 .checkbox-name,
-.textinput-name, .form-components-name {
+.textinput-name,
+.form-components-name {
   font-weight: 600;
 }
 
@@ -395,14 +398,14 @@ html, body {
 .album-name {
   margin-bottom: 3%;
   margin-left: 3%;
-  font-weight:600;
+  font-weight: 600;
   font-size: 20px;
 }
 
 .progress2 {
   padding: 6px;
   border-radius: 30px;
-  background: rgba(0, 0, 0, 0.25);  
+  background: rgba(0, 0, 0, 0.25);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
 }
 
@@ -414,7 +417,7 @@ html, body {
   background-color: #989898;
   padding: 5% 10% 5% 10%;
   justify-self: center;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
 }
 
@@ -423,18 +426,16 @@ html, body {
   height: 5px;
   width: 150px;
   border-radius: 5px;
-    background-image: linear-gradient(
-      150deg,
+  background-image: linear-gradient(150deg,
       #27ffe2 0%,
       rgb(77, 255, 92) 30%,
       #e313ff 50%,
-      #fff800 100%
-    );
-    background-size: 200% auto;
-    animation: loading 1s linear infinite;
-    height: 2px;
-    width: 45%;
-} 
+      #fff800 100%);
+  background-size: 200% auto;
+  animation: loading 1s linear infinite;
+  height: 2px;
+  width: 45%;
+}
 
 @keyframes loading {
   to {
@@ -442,7 +443,8 @@ html, body {
   }
 }
 
-.text-input, .textarea {
+.text-input,
+.textarea {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -451,7 +453,7 @@ html, body {
   margin: 5px;
 }
 
-.text-input > span {
+.text-input>span {
   margin-bottom: 5px;
 }
 
@@ -463,10 +465,21 @@ html, body {
   margin-top: 3%;
 }
 
-textarea, input {
+textarea,
+input {
   border-radius: 10px;
 }
 
 textarea {
   resize: none;
+}
+
+input[type=checkbox] {
+  accent-color: #fd511d;cursor: pointer;
+  animation: ani 2s linear infinite;
+}
+
+input[type=checkbox]:checked {
+  box-shadow: 2px 2px 10px #fced45, -5px -5px 15px #fced45;
+  animation: none;
 }
